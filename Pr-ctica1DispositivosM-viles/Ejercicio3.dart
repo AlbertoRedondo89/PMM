@@ -81,9 +81,9 @@ void main() {
       }
     }
     print("-------------------------------------------");
-    print("El cotxe am més km es: " + maxKmCotxe.toString());
+    print("El cotxe amb més km es: " + maxKmCotxe.toString());
     print("-------------------------------------------");
-    print("La moto con más km es: " + maxKmMoto.toString());
+    print("La moto amb més km es: " + maxKmMoto.toString());
 
 }
 

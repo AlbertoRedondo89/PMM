@@ -1,8 +1,8 @@
-#Tue Oct 22 19:45:55 CEST 2024
-base.0=C\:\\Users\\alber\\Desktop\\GIT\\PMM\\Tema2\\Ejercicio1\\exercici1\\build\\app\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes.dex
-base.1=C\:\\Users\\alber\\Desktop\\GIT\\PMM\\Tema2\\Ejercicio1\\exercici1\\build\\app\\intermediates\\dex\\debug\\mergeProjectDexDebug\\0\\classes.dex
-base.2=C\:\\Users\\alber\\Desktop\\GIT\\PMM\\Tema2\\Ejercicio1\\exercici1\\build\\app\\intermediates\\dex\\debug\\mergeProjectDexDebug\\1\\classes.dex
-base.3=C\:\\Users\\alber\\Desktop\\GIT\\PMM\\Tema2\\Ejercicio1\\exercici1\\build\\app\\intermediates\\dex\\debug\\mergeProjectDexDebug\\6\\classes.dex
+#Wed Oct 23 12:40:46 CEST 2024
+base.0=C\:\\Users\\alber\\Desktop\\ConexionConGit\\PMM\\PMM\\Tema2\\exercici1\\build\\app\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes.dex
+base.1=C\:\\Users\\alber\\Desktop\\ConexionConGit\\PMM\\PMM\\Tema2\\exercici1\\build\\app\\intermediates\\dex\\debug\\mergeProjectDexDebug\\0\\classes.dex
+base.2=C\:\\Users\\alber\\Desktop\\ConexionConGit\\PMM\\PMM\\Tema2\\exercici1\\build\\app\\intermediates\\dex\\debug\\mergeProjectDexDebug\\1\\classes.dex
+base.3=C\:\\Users\\alber\\Desktop\\ConexionConGit\\PMM\\PMM\\Tema2\\exercici1\\build\\app\\intermediates\\dex\\debug\\mergeProjectDexDebug\\6\\classes.dex
 path.0=classes.dex
 path.1=0/classes.dex
 path.2=1/classes.dex

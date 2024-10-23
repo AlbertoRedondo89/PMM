@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class ContadorPage extends StatefulWidget{
+  const ContadorPage({super.key});
+
 
 @override
 createState() {
@@ -21,13 +23,13 @@ createState() => _ContadorPageState();
 class _ContadorPageState extends State<ContadorPage> {
 
 int _contador = 0;
-final _estil = TextStyle(fontSize: 24);
+final _estil = const TextStyle(fontSize: 24);
 
  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Contador amb Stateful'),
+        title: const Text('Contador amb Stateful'),
         centerTitle: true,
       ),
       body: Center(
@@ -47,12 +49,12 @@ final _estil = TextStyle(fontSize: 24);
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: <Widget>[
-        SizedBox(width: 30.0,),
-        FloatingActionButton(child: Icon(Icons.exposure_zero) ,onPressed: _restart),
-        Expanded(child: SizedBox()),
-        FloatingActionButton(child: Icon(Icons.remove) ,onPressed: _restar),
-        SizedBox(width: 5.0),
-        FloatingActionButton(child: Icon(Icons.add) ,onPressed: _sumar),
+        const SizedBox(width: 30.0,),
+        FloatingActionButton(onPressed: _restart, child: const Icon(Icons.exposure_zero)),
+        const Expanded(child: SizedBox()),
+        FloatingActionButton(onPressed: _restar, child: const Icon(Icons.remove)),
+        const SizedBox(width: 5.0),
+        FloatingActionButton(onPressed: _sumar, child: const Icon(Icons.add)),
       ],
     );
   }

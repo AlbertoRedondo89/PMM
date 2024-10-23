@@ -1,0 +1,1 @@
+ C:\\Users\\alber\\Desktop\\ConexionConGit\\PMM\\PMM\\Tema2\\exercici1\\.dart_tool\\flutter_build\\452c66ffaf1f86dd98fbae7f349b63f2\\native_assets.yaml: 

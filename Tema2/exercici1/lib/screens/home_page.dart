@@ -3,13 +3,15 @@ import 'package:flutter/material.dart';
 class HomePage extends StatelessWidget {
 
 int contador = 0;
-final estil = TextStyle(fontSize: 24);
+final estil = const TextStyle(fontSize: 24);
+
+  HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Contador'),
+        title: const Text('Contador'),
         centerTitle: true,
       ),
       body: Center(
@@ -24,7 +26,7 @@ final estil = TextStyle(fontSize: 24);
         onPressed: () {
           contador = contador + 1;
         },
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
         ),
     );
   }

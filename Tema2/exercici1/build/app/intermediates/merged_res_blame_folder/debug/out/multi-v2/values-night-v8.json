@@ -4,7 +4,7 @@
             "outputFile": "com.example.exercici1.app-mergeDebugResources-24:/values-night-v8/values-night-v8.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\alber\\Desktop\\GIT\\PMM\\Tema2\\Ejercicio1\\exercici1\\android\\app\\src\\main\\res\\values-night\\styles.xml",
+                    "source": "C:\\Users\\alber\\Desktop\\ConexionConGit\\PMM\\PMM\\Tema2\\exercici1\\android\\app\\src\\main\\res\\values-night\\styles.xml",
                     "from": {
                         "startLines": "3,14",
                         "startColumns": "4,4",

@@ -41,7 +41,7 @@ String horaString2(int h, int m, int s) {
         hores += (minuts/60).toInt();
         minuts = minuts%60;
     }
-    if (hores > 23) formattedTime = "Hora incorrecta";
+    if (hores > 23 || seg < 0) formattedTime = "Hora incorrecta";// If para asegurar que la hora no sea mayor de 23 ni los segundos menos de 0
     else {
       // padLeft para asegurarme de que los números tengan dos dígitos, aunque sean menores de 10.
         String horesStr = hores.toString().padLeft(2, '0');
@@ -58,6 +58,7 @@ String horaString2(int h, int m, int s) {
 void main(List<String> args) {
 
 //Asignación de los valores a los tres INT segund los datos recibidos
+
 int h = int.parse(args[0]);
 int m = int.parse(args[1]);
 int s = int.parse(args[2]);

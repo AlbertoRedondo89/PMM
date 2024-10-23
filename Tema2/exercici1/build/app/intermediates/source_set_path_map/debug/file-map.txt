@@ -18,10 +18,10 @@ com.example.exercici1.app-core-1.13.1-16 C:\Users\alber\.gradle\caches\transform
 com.example.exercici1.app-lifecycle-runtime-2.7.0-17 C:\Users\alber\.gradle\caches\transforms-3\c8996eb6ce8efabee1883fe1486006c9\transformed\lifecycle-runtime-2.7.0\res
 com.example.exercici1.app-jetified-lifecycle-viewmodel-savedstate-2.7.0-18 C:\Users\alber\.gradle\caches\transforms-3\ca2eed4266fd24517e583e6618aa3924\transformed\jetified-lifecycle-viewmodel-savedstate-2.7.0\res
 com.example.exercici1.app-jetified-tracing-1.2.0-19 C:\Users\alber\.gradle\caches\transforms-3\fee79d0d8ef3af5dbc14ef6d22d028cf\transformed\jetified-tracing-1.2.0\res
-com.example.exercici1.app-debug-20 C:\Users\alber\Desktop\GIT\PMM\Tema2\Ejercicio1\exercici1\android\app\src\debug\res
-com.example.exercici1.app-main-21 C:\Users\alber\Desktop\GIT\PMM\Tema2\Ejercicio1\exercici1\android\app\src\main\res
-com.example.exercici1.app-pngs-22 C:\Users\alber\Desktop\GIT\PMM\Tema2\Ejercicio1\exercici1\build\app\generated\res\pngs\debug
-com.example.exercici1.app-resValues-23 C:\Users\alber\Desktop\GIT\PMM\Tema2\Ejercicio1\exercici1\build\app\generated\res\resValues\debug
-com.example.exercici1.app-packageDebugResources-24 C:\Users\alber\Desktop\GIT\PMM\Tema2\Ejercicio1\exercici1\build\app\intermediates\incremental\debug\packageDebugResources\merged.dir
-com.example.exercici1.app-packageDebugResources-25 C:\Users\alber\Desktop\GIT\PMM\Tema2\Ejercicio1\exercici1\build\app\intermediates\incremental\debug\packageDebugResources\stripped.dir
-com.example.exercici1.app-merged_res-26 C:\Users\alber\Desktop\GIT\PMM\Tema2\Ejercicio1\exercici1\build\app\intermediates\merged_res\debug
+com.example.exercici1.app-debug-20 C:\Users\alber\Desktop\ConexionConGit\PMM\PMM\Tema2\exercici1\android\app\src\debug\res
+com.example.exercici1.app-main-21 C:\Users\alber\Desktop\ConexionConGit\PMM\PMM\Tema2\exercici1\android\app\src\main\res
+com.example.exercici1.app-pngs-22 C:\Users\alber\Desktop\ConexionConGit\PMM\PMM\Tema2\exercici1\build\app\generated\res\pngs\debug
+com.example.exercici1.app-resValues-23 C:\Users\alber\Desktop\ConexionConGit\PMM\PMM\Tema2\exercici1\build\app\generated\res\resValues\debug
+com.example.exercici1.app-packageDebugResources-24 C:\Users\alber\Desktop\ConexionConGit\PMM\PMM\Tema2\exercici1\build\app\intermediates\incremental\debug\packageDebugResources\merged.dir
+com.example.exercici1.app-packageDebugResources-25 C:\Users\alber\Desktop\ConexionConGit\PMM\PMM\Tema2\exercici1\build\app\intermediates\incremental\debug\packageDebugResources\stripped.dir
+com.example.exercici1.app-merged_res-26 C:\Users\alber\Desktop\ConexionConGit\PMM\PMM\Tema2\exercici1\build\app\intermediates\merged_res\debug

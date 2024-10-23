@@ -4,10 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class SaMevaApp extends StatelessWidget{
+  const SaMevaApp({super.key});
+
 
 @override
   Widget build(context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Center(
         child:ContadorPage(),

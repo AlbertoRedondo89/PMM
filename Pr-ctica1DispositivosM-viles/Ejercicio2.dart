@@ -13,7 +13,7 @@ if (args.isEmpty) {
     return;
   }
 
-//Se parsea el valor a entero. No compruebo si no es un número porque el usuario es buena gente y no hace esas cosas.
+//Se parsea el valor a entero. En caso de no poderse convertir a entero lo pasaría a -1 y saltaría el error siguiente
 int n = int.tryParse(args[0]) ?? -1;
 
 //Compruebo que sea mayor a 0, para evitar los números negativos. 
