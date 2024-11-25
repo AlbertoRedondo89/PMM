@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class HomePageTemp extends StatelessWidget {
 
-  final elements = ['Element 1', 'Element 2', 'Element 3', 'Element 4']
+  final elements = ['Element 1', 'Element 2', 'Element 3', 'Element 4'];
 
   
 
