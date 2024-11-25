@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:practica/widgets/InfoRow.dart';
 import '../models/persona.dart';
 import 'personal_page.dart';
 import 'widget_page.dart';
@@ -11,6 +12,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  // Instancia de la clase persona que se muestra
   Persona persona = Persona(
     nom: "Nom",
     cognom: "Cognom",
@@ -20,6 +22,7 @@ class _HomePageState extends State<HomePage> {
     puntuacio: "",
   );
 
+  // Método para actualizar los datos de persona
   void _updatePersona(Persona updatedPersona) {
     setState(() {
       persona = updatedPersona;
@@ -54,6 +57,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ),
+              // ------------------------------------------------------------------ INFO PERSONA
               const SizedBox(height: 20),
               Card(
                 margin: const EdgeInsets.symmetric(horizontal: 20),
@@ -80,6 +84,8 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ),
+              // ----------------------------------------------------------------------- BOTONES
+                                                                                      // BOTON 1
               const SizedBox(height: 30),
               ElevatedButton(
                 onPressed: () async {
@@ -93,6 +99,8 @@ class _HomePageState extends State<HomePage> {
                     _updatePersona(result);
                   }
                 },
+                                                                         // ESTILO
+
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.orange,
                   padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
@@ -106,6 +114,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               const SizedBox(height: 16),
+                                                                                      // BOTON 2
               ElevatedButton(
                 onPressed: () async {
                   final result = await Navigator.push(
@@ -118,6 +127,7 @@ class _HomePageState extends State<HomePage> {
                     _updatePersona(result);
                   }
                 },
+                                                                            // ESTILO
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.green,
                   padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
@@ -133,39 +143,6 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
         ),
-      ),
-    );
-  }
-}
-
-class InfoRow extends StatelessWidget {
-  final String label;
-  final String value;
-
-  const InfoRow({super.key, required this.label, required this.value});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 8.0),
-      child: Row(
-        children: [
-          Text(
-            "$label ",
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 16,
-            ),
-          ),
-          Expanded(
-            child: Text(
-              value,
-              style: const TextStyle(
-                fontSize: 16,
-              ),
-            ),
-          ),
-        ],
       ),
     );
   }
