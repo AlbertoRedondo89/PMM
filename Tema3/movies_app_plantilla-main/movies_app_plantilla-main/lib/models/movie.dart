@@ -33,16 +33,16 @@ class Movie {
     required this.voteCount,
   });
 
-  factory Movie.fromRawJson(String str) => Movie.fromJson(json.decode(str));
+  factory Movie.fromJson(String str) => Movie.fromMap(json.decode(str));
 
-  String toRawJson() => json.encode(toJson());
+  String toJson() => json.encode(toMap());
 
-  factory Movie.fromJson(Map<String, dynamic> json) => Movie(
+  factory Movie.fromMap(Map<String, dynamic> json) => Movie(
         adult: json["adult"],
         backdropPath: json["backdrop_path"],
         genreIds: List<int>.from(json["genre_ids"].map((x) => x)),
         id: json["id"],
-        originalLanguage: json["original_language"]!,
+        originalLanguage: json["original_language"],
         originalTitle: json["original_title"],
         overview: json["overview"],
         popularity: json["popularity"]?.toDouble(),
@@ -54,12 +54,12 @@ class Movie {
         voteCount: json["vote_count"],
       );
 
-  Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toMap() => {
         "adult": adult,
         "backdrop_path": backdropPath,
         "genre_ids": List<dynamic>.from(genreIds.map((x) => x)),
         "id": id,
-        "original_language": originalLanguageValues.reverse[originalLanguage],
+        "original_language": originalLanguage,
         "original_title": originalTitle,
         "overview": overview,
         "popularity": popularity,
@@ -71,24 +71,11 @@ class Movie {
         "vote_average": voteAverage,
         "vote_count": voteCount,
       };
-}
-
-enum OriginalLanguage { EN, FR, SV }
-
-final originalLanguageValues = EnumValues({
-  "en": OriginalLanguage.EN,
-  "fr": OriginalLanguage.FR,
-  "sv": OriginalLanguage.SV
-});
-
-class EnumValues<T> {
-  Map<String, T> map;
-  late Map<T, String> reverseMap;
-
-  EnumValues(this.map);
-
-  Map<T, String> get reverse {
-    reverseMap = map.map((k, v) => MapEntry(v, k));
-    return reverseMap;
+  get fullPosterImg {
+    if (posterPath == null) {
+      return 'i.stack.imgur.com/GNhxO.png';
+    } else {
+      return 'image.tmdb.org/t/p/w500/$posterPath';
+    }
   }
 }

@@ -1,5 +1,6 @@
+import 'models.dart';
+
 import 'dart:convert';
-import 'package:movies_app/models/movies.dart';
 
 class NowPlayingResponse {
   Dates dates;
@@ -16,25 +17,24 @@ class NowPlayingResponse {
     required this.totalResults,
   });
 
-  factory NowPlayingResponse.fromRawJson(String str) =>
-      NowPlayingResponse.fromJson(json.decode(str));
+  factory NowPlayingResponse.fromJson(String str) =>
+      NowPlayingResponse.fromMap(json.decode(str));
 
-  String toRawJson() => json.encode(toJson());
+  String toJson() => json.encode(toMap());
 
-  factory NowPlayingResponse.fromJson(Map<String, dynamic> json) =>
+  factory NowPlayingResponse.fromMap(Map<String, dynamic> json) =>
       NowPlayingResponse(
-        dates: Dates.fromJson(json["dates"]),
+        dates: Dates.fromMap(json["dates"]),
         page: json["page"],
-        results:
-            List<Movie>.from(json["results"].map((x) => Movie.fromJson(x))),
+        results: List<Movie>.from(json["results"].map((x) => Movie.fromMap(x))),
         totalPages: json["total_pages"],
         totalResults: json["total_results"],
       );
 
-  Map<String, dynamic> toJson() => {
-        "dates": dates.toJson(),
+  Map<String, dynamic> toMap() => {
+        "dates": dates.toMap(),
         "page": page,
-        "results": List<dynamic>.from(results.map((x) => x.toJson())),
+        "results": List<Movie>.from(results.map((x) => x.toMap())),
         "total_pages": totalPages,
         "total_results": totalResults,
       };
@@ -49,16 +49,16 @@ class Dates {
     required this.minimum,
   });
 
-  factory Dates.fromRawJson(String str) => Dates.fromJson(json.decode(str));
+  factory Dates.fromJson(String str) => Dates.fromMap(json.decode(str));
 
-  String toRawJson() => json.encode(toJson());
+  String toJson() => json.encode(toMap());
 
-  factory Dates.fromJson(Map<String, dynamic> json) => Dates(
+  factory Dates.fromMap(Map<String, dynamic> json) => Dates(
         maximum: DateTime.parse(json["maximum"]),
         minimum: DateTime.parse(json["minimum"]),
       );
 
-  Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toMap() => {
         "maximum":
             "${maximum.year.toString().padLeft(4, '0')}-${maximum.month.toString().padLeft(2, '0')}-${maximum.day.toString().padLeft(2, '0')}",
         "minimum":
