@@ -14,8 +14,8 @@ class VideoScroller extends StatelessWidget {
       appBar: AppBar(
         title: const Text("Video Scroller"),
       ),
-      body: PageView.builder(
-        scrollDirection: Axis.vertical, // Cambia a Axis.horizontal para scroll horizontal
+      body: PageView.builder( // ---------------------------- ESTRUCTURA GENERAL, UN ITEM POR ELEMENTO EN LA LISTA DE VIDEOS
+        scrollDirection: Axis.vertical, 
         itemCount: videoUrls.length,
         itemBuilder: (context, index) {
           return VideoPlayerItem(videoUrl: videoUrls[index]);
@@ -42,25 +42,24 @@ class _VideoPlayerItemState extends State<VideoPlayerItem> {
     super.initState();
     _controller = VideoPlayerController.networkUrl(Uri.parse(widget.videoUrl))
       ..initialize().then((_) {
-        setState(() {}); // Actualiza el estado cuando el video esté listo
+        setState(() {}); 
       })
-      ..setLooping(true) // Configura el loop del video
-      ..play(); // Inicia la reproducción automáticamente
+      ..setLooping(true)
+      ..play();
   }
 
   @override
   void dispose() {
-    _controller.dispose(); // Libera los recursos cuando el widget se elimine
-    super.dispose();
+    _controller.dispose(); 
   }
 
   @override
   Widget build(BuildContext context) {
     return _controller.value.isInitialized
         ? SizedBox.expand(
-            // Hace que el video ocupe todo el espacio disponible
+           
             child: FittedBox(
-              fit: BoxFit.cover, // Escala el video para cubrir toda la pantalla
+              fit: BoxFit.cover, 
               child: SizedBox(
                 width: _controller.value.size.width,
                 height: _controller.value.size.height,
@@ -69,7 +68,7 @@ class _VideoPlayerItemState extends State<VideoPlayerItem> {
             ),
           )
         : const Center(
-            child: CircularProgressIndicator(), // Muestra un indicador mientras se carga el video
+            child: CircularProgressIndicator(), 
           );
   }
 }

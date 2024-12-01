@@ -34,6 +34,7 @@ class _WidgetPageState extends State<WidgetPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(puntuacio!),
+            // ---------------------------------------------- ELEMENTO 1, RATING BAR
             CustomRatingBar(
               initialRating: 3,
               onRatingUpdate: (rating) {
@@ -43,12 +44,14 @@ class _WidgetPageState extends State<WidgetPage> {
               },
             ),
             const Divider(),
+            // ---------------------------------------------- ELEMENTO 2, BOTON
             ElevatedButton(
               onPressed: () {
                 widget.persona.puntuacio = puntuacio;
                 Navigator.pop(context, widget.persona);
               },
               child: const Icon(Icons.abc_sharp)),
+              // -------------------------------------------- ELEMENTO 3, ventanita emergente
             Tooltip(
               message: "Això és un Tooltip",
               child: ElevatedButton(
@@ -57,6 +60,7 @@ class _WidgetPageState extends State<WidgetPage> {
               ),
             ),
             const Divider(),
+            // ----------------------------------------------- ELEMENTO 4, boton a page videos
             ElevatedButton(
               onPressed: () {
                 Navigator.push(context,  MaterialPageRoute(
