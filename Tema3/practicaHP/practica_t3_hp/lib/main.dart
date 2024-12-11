@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:practica_t3_hp/providers/meals_provider.dart';
-import 'package:practica_t3_hp/providers/movies_provider.dart';
 import 'package:practica_t3_hp/screens/screens.dart';
 import 'package:provider/provider.dart';
 

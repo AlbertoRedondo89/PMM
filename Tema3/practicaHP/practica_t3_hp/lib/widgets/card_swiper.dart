@@ -2,6 +2,7 @@ import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:practica_t3_hp/models/meal.dart';
 import 'package:practica_t3_hp/models/models.dart';
+import 'package:practica_t3_hp/providers/meals_provider.dart';
 
 class CardSwiper extends StatelessWidget {
   final List<Meal> meals;
@@ -33,9 +34,10 @@ class CardSwiper extends StatelessWidget {
           itemHeight: size.height * 0.4,
           itemBuilder: (BuildContext context, int index) {
             final meal = meals[index];
+                                                                                                print(meal.idMeal);
             return GestureDetector(
               onTap: () =>
-                  Navigator.pushNamed(context, 'details', arguments: meal),
+                  Navigator.pushNamed(context, 'details', arguments: meal.idMeal),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(20),
                 child: FadeInImage(

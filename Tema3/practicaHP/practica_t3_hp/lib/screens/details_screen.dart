@@ -1,38 +1,82 @@
 import 'package:flutter/material.dart';
 import 'package:practica_t3_hp/models/meal.dart';
+import 'package:practica_t3_hp/models/meal_receta.dart';
 import 'package:practica_t3_hp/models/models.dart';
+import 'package:practica_t3_hp/providers/meals_provider.dart';
 import 'package:practica_t3_hp/widgets/widgets.dart';
+import 'package:provider/provider.dart';
 
 class DetailsScreen extends StatelessWidget {
   const DetailsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // TODO: Canviar després per una instància de Peli
-    final Meal comidilla = ModalRoute.of(context)?.settings.arguments as Meal;
+    final size = MediaQuery.of(context).size;
+    final String comida = ModalRoute.of(context)?.settings.arguments as String;
+    final mealsProvider = Provider.of<MealsProvider>(context, listen: false);
+    final Future<MealReceta?> comidilla = mealsProvider.getDatosReceta(comida);
 
     return Scaffold(
-      body: CustomScrollView(
-        slivers: [
-          //_CustomAppBar(movie: comidilla),
-          SliverList(
-            delegate: SliverChildListDelegate(
-              [
-                _PosterAndTitile(movie: comidilla),
-                _Overview(
-                  movie: comidilla,
+      body: FutureBuilder<MealReceta?>(
+        future: comidilla,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          } else if (snapshot.hasError) {
+            return Center(
+              child: Text('Error: ${snapshot.error}'),
+            );
+          } else if (!snapshot.hasData || snapshot.data == null) {
+            return Center(
+              child: Text('No se encontró la receta.'),
+            );
+          }
+
+          final receta = snapshot.data!;
+          return CustomScrollView(
+            slivers: [
+              SliverAppBar(
+                backgroundColor: Colors.indigo,
+                expandedHeight: 200,
+                floating: false,
+                pinned: true,
+                flexibleSpace: FlexibleSpaceBar(
+                  centerTitle: true,
+                  titlePadding: const EdgeInsets.all(0),
+                  title: Container(
+                    width: double.infinity,
+                    alignment: Alignment.bottomCenter,
+                    color: Colors.black12,
+                    padding: const EdgeInsets.only(bottom: 10),
+                    child: Text(
+                      receta.getTitulo(),
+                      style: const TextStyle(fontSize: 16),
+                    ),
+                  ),
+                  background: FadeInImage(
+                    placeholder: const AssetImage('assets/loading.gif'),
+                    image: NetworkImage(receta.getImage()),
+                    fit: BoxFit.cover,
+                  ),
                 ),
-                _Overview(movie: comidilla),
-                //CastingCards(idMovie: 2),
-              ],
-            ),
-          ),
-        ],
+              ),
+              SliverList(
+                delegate: SliverChildListDelegate(
+                  [
+                    _FotoYNombre(receta: receta),
+                    _Overview(receta: receta),
+                  ],
+                ),
+              ),
+            ],
+          );
+        },
       ),
     );
   }
 }
-
 class _CustomAppBar extends StatelessWidget {
   final Meal comida;
 
@@ -68,10 +112,10 @@ class _CustomAppBar extends StatelessWidget {
   }
 }
 
-class _PosterAndTitile extends StatelessWidget {
-  final Meal movie;
+class _FotoYNombre extends StatelessWidget {
+  final MealReceta receta;
 
-  const _PosterAndTitile({Key? key, required this.movie}) : super(key: key);
+  const _FotoYNombre({Key? key, required this.receta}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     final TextTheme textTheme = Theme.of(context).textTheme;
@@ -84,7 +128,7 @@ class _PosterAndTitile extends StatelessWidget {
             borderRadius: BorderRadius.circular(20),
             child: FadeInImage(
               placeholder: const AssetImage('assets/loading.gif'),
-              image: NetworkImage(movie.idMeal),
+              image: NetworkImage(receta.getImage()),
               height: 150,
             ),
           ),
@@ -94,57 +138,35 @@ class _PosterAndTitile extends StatelessWidget {
           Column(
             children: [
               Text(
-                movie.idMeal,
+                receta.getTitulo(),
                 style: textTheme.headlineLarge,
                 overflow: TextOverflow.ellipsis,
                 maxLines: 2,
               ),
               Text(
-                movie.idMeal,
+                receta.getTitulo(),
                 style: textTheme.titleMedium,
                 overflow: TextOverflow.ellipsis,
                 maxLines: 2,
               ),
-              Row(
-                children: [
-                  ..._buildStarIcons(4),
-                  const SizedBox(width: 5),
-                  //Text('Nota: ${movie.voteAverage}', style: textTheme.bodyMedium),
-                ],
-              )
             ],
           )
         ],
       ),
     );
   }
-
-  List<Widget> _buildStarIcons(double rating) {
-    return List.generate(10, (index) {
-      if (rating >= index + 1) {
-        return const Icon(Icons.star,
-            size: 15, color: Colors.amber); // Estrella llena
-      } else if (rating > index && rating < index + 1) {
-        return const Icon(Icons.star_half,
-            size: 15, color: Colors.amber); // Media estrella
-      } else {
-        return const Icon(Icons.star_border,
-            size: 15, color: Colors.grey); // Estrella vacía
-      }
-    });
-  }
 }
 
 class _Overview extends StatelessWidget {
-  final Meal movie;
+  final MealReceta receta;
 
-  const _Overview({Key? key, required this.movie}) : super(key: key);
+  const _Overview({Key? key, required this.receta}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: Text(
-        movie.idMeal,
+        receta.getTitulo(),
         textAlign: TextAlign.justify,
         style: Theme.of(context).textTheme.bodyMedium,
       ),
