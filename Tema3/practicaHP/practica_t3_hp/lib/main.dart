@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:practica_t3_hp/providers/meals_provider.dart';
 import 'package:practica_t3_hp/providers/movies_provider.dart';
 import 'package:practica_t3_hp/screens/screens.dart';
 import 'package:provider/provider.dart';
@@ -13,7 +14,7 @@ class AppState extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (_) => MoviesProvider(),
+          create: (_) => MealsProvider(),
           lazy: false,
         )
       ],
@@ -29,7 +30,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Pel·lícules',
+      title: 'Comidillas',
       initialRoute: 'home',
       routes: {
         'home': (BuildContext context) => HomeScreen(),

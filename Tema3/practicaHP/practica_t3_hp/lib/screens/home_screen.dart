@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:practica_t3_hp/providers/meals_provider.dart';
 import 'package:practica_t3_hp/providers/movies_provider.dart';
 import 'package:practica_t3_hp/widgets/widgets.dart';
 import 'package:provider/provider.dart';
@@ -8,12 +9,13 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final moviesProvider = Provider.of<MoviesProvider>(context, listen: true);
+    final mealsProvider = Provider.of<MealsProvider>(context, listen: true);
+    print('iniciando');
 
-    print(moviesProvider.onDisplayMovie);
+    print(mealsProvider.mealsDePrueba.length);
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Cartellera'),
+        title: const Text('Comiditas'),
         elevation: 0,
         actions: [
           IconButton(onPressed: () {}, icon: const Icon(Icons.search_outlined))
@@ -24,10 +26,10 @@ class HomeScreen extends StatelessWidget {
           child: Column(
             children: [
               // Targetes principals
-              CardSwiper(movies: moviesProvider.onDisplayMovie),
+              CardSwiper(meals: mealsProvider.mealsDePrueba),
 
               // Slider de pel·licules
-              MovieSlider(movies: moviesProvider.popularMovies),
+              MealSlider(meals: mealsProvider.mealsDePrueba),
               // Poodeu fer la prova d'afegir-ne uns quants, veureu com cada llista és independent
               // MovieSlider(),
               // MovieSlider(),

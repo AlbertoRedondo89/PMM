@@ -1,5 +1,6 @@
-import 'package:flutter/material.dart';
+/*import 'package:flutter/material.dart';
 import 'package:practica_t3_hp/models/models.dart';
+import 'package:practica_t3_hp/providers/meals_provider.dart';
 import 'package:practica_t3_hp/providers/movies_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -10,10 +11,10 @@ class CastingCards extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final moviesProvider = Provider.of<MoviesProvider>(context, listen: false);
+    final mealsProvider = Provider.of<MealsProvider>(context, listen: false);
 
     return FutureBuilder(
-      future: moviesProvider.getMovieCast(idMovie),
+      future: mealsProvider.getMovieCast(idMovie),
       builder: (BuildContext context, AsyncSnapshot<List<Cast>> snapshot) {
         if (!snapshot.hasData) {
           return Container(
@@ -77,3 +78,4 @@ class _CastCard extends StatelessWidget {
     );
   }
 }
+*/

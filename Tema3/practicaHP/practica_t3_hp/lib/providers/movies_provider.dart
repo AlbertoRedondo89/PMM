@@ -1,8 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'package:practica_t3_hp/models/models.dart';
-import 'package:practica_t3_hp/models/popular_response.dart';
-
+/*
 class MoviesProvider extends ChangeNotifier {
   final String _baseUrl = 'api.themoviedb.org';
   final String _apiKey = '8567c02a3be956cc5bdb08210a5b168e';
@@ -60,3 +56,4 @@ class MoviesProvider extends ChangeNotifier {
     return creditsResponse.cast;
   }
 }
+*/

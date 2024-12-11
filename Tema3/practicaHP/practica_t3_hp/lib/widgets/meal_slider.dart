@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:practica_t3_hp/models/meal.dart';
 import 'package:practica_t3_hp/models/models.dart';
 
-class MovieSlider extends StatelessWidget {
-  final List<Movie> movies;
-  const MovieSlider({Key? key, required this.movies}) : super(key: key);
-
-  // const MovieSlider({Key? key}) : super(key: key);
+class MealSlider extends StatelessWidget {
+  final List<Meal> meals;
+  const MealSlider({super.key, required this.meals});
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
 
-    if (movies.isEmpty) {
+    if (meals.isEmpty) {
       return Container(
         width: double.infinity,
         height: size.height * 0.5,
@@ -38,9 +37,9 @@ class MovieSlider extends StatelessWidget {
           Expanded(
             child: ListView.builder(
                 scrollDirection: Axis.horizontal,
-                itemCount: movies.length,
-                itemBuilder: (_, int index) => _MoviePoster(
-                      movie: movies[index],
+                itemCount: meals.length,
+                itemBuilder: (_, int index) => _MealPoster(
+                      meal: meals[index],
                     )),
           )
         ],
@@ -49,9 +48,9 @@ class MovieSlider extends StatelessWidget {
   }
 }
 
-class _MoviePoster extends StatelessWidget {
-  final Movie movie;
-  const _MoviePoster({Key? key, required this.movie}) : super(key: key);
+class _MealPoster extends StatelessWidget {
+  final Meal meal;
+  const _MealPoster({Key? key, required this.meal}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +68,7 @@ class _MoviePoster extends StatelessWidget {
               borderRadius: BorderRadius.circular(20),
               child: FadeInImage(
                 placeholder: const AssetImage('assets/no-image.jpg'),
-                image: NetworkImage(movie.fullPosterPath),
+                image: NetworkImage(meal.strMealThumb),
                 width: 130,
                 height: 190,
                 fit: BoxFit.cover,
@@ -81,7 +80,7 @@ class _MoviePoster extends StatelessWidget {
           ),
           Expanded(
             child: Text(
-              movie.originalTitle,
+              meal.strMeal,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
               textAlign: TextAlign.center,

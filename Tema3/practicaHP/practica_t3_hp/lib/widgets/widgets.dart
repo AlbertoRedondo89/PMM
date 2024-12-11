@@ -5,4 +5,4 @@
 */
 export 'package:practica_t3_hp/widgets/card_swiper.dart';
 export 'package:practica_t3_hp/widgets/casting_cards.dart';
-export 'package:practica_t3_hp/widgets/movie_slider.dart';
+export 'package:practica_t3_hp/widgets/meal_slider.dart';

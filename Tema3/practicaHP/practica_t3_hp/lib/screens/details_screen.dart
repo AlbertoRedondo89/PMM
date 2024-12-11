@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:practica_t3_hp/models/meal.dart';
 import 'package:practica_t3_hp/models/models.dart';
 import 'package:practica_t3_hp/widgets/widgets.dart';
 
@@ -8,21 +9,21 @@ class DetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: Canviar després per una instància de Peli
-    final Movie peli = ModalRoute.of(context)?.settings.arguments as Movie;
+    final Meal comidilla = ModalRoute.of(context)?.settings.arguments as Meal;
 
     return Scaffold(
       body: CustomScrollView(
         slivers: [
-          _CustomAppBar(movie: peli),
+          //_CustomAppBar(movie: comidilla),
           SliverList(
             delegate: SliverChildListDelegate(
               [
-                _PosterAndTitile(movie: peli),
+                _PosterAndTitile(movie: comidilla),
                 _Overview(
-                  movie: peli,
+                  movie: comidilla,
                 ),
-                _Overview(movie: peli),
-                CastingCards(idMovie: peli.id),
+                _Overview(movie: comidilla),
+                //CastingCards(idMovie: 2),
               ],
             ),
           ),
@@ -33,9 +34,9 @@ class DetailsScreen extends StatelessWidget {
 }
 
 class _CustomAppBar extends StatelessWidget {
-  final Movie movie;
+  final Meal comida;
 
-  const _CustomAppBar({super.key, required this.movie});
+  const _CustomAppBar({required this.comida});
   @override
   Widget build(BuildContext context) {
     // Exactament igual que la AppBaer però amb bon comportament davant scroll
@@ -53,13 +54,13 @@ class _CustomAppBar extends StatelessWidget {
           color: Colors.black12,
           padding: const EdgeInsets.only(bottom: 10),
           child: Text(
-            movie.title,
+            comida.strMeal,
             style: const TextStyle(fontSize: 16),
           ),
         ),
         background: FadeInImage(
           placeholder: const AssetImage('assets/loading.gif'),
-          image: NetworkImage(movie.fullPosterPath),
+          image: NetworkImage(comida.strMealThumb),
           fit: BoxFit.cover,
         ),
       ),
@@ -68,7 +69,7 @@ class _CustomAppBar extends StatelessWidget {
 }
 
 class _PosterAndTitile extends StatelessWidget {
-  final Movie movie;
+  final Meal movie;
 
   const _PosterAndTitile({Key? key, required this.movie}) : super(key: key);
   @override
@@ -83,7 +84,7 @@ class _PosterAndTitile extends StatelessWidget {
             borderRadius: BorderRadius.circular(20),
             child: FadeInImage(
               placeholder: const AssetImage('assets/loading.gif'),
-              image: NetworkImage(movie.fullPosterPath),
+              image: NetworkImage(movie.idMeal),
               height: 150,
             ),
           ),
@@ -93,20 +94,20 @@ class _PosterAndTitile extends StatelessWidget {
           Column(
             children: [
               Text(
-                movie.title,
+                movie.idMeal,
                 style: textTheme.headlineLarge,
                 overflow: TextOverflow.ellipsis,
                 maxLines: 2,
               ),
               Text(
-                movie.originalTitle,
+                movie.idMeal,
                 style: textTheme.titleMedium,
                 overflow: TextOverflow.ellipsis,
                 maxLines: 2,
               ),
               Row(
                 children: [
-                  ..._buildStarIcons(movie.voteAverage),
+                  ..._buildStarIcons(4),
                   const SizedBox(width: 5),
                   //Text('Nota: ${movie.voteAverage}', style: textTheme.bodyMedium),
                 ],
@@ -135,7 +136,7 @@ class _PosterAndTitile extends StatelessWidget {
 }
 
 class _Overview extends StatelessWidget {
-  final Movie movie;
+  final Meal movie;
 
   const _Overview({Key? key, required this.movie}) : super(key: key);
   @override
@@ -143,7 +144,7 @@ class _Overview extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: Text(
-        movie.overview,
+        movie.idMeal,
         textAlign: TextAlign.justify,
         style: Theme.of(context).textTheme.bodyMedium,
       ),
