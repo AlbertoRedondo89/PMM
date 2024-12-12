@@ -21,7 +21,7 @@ class DetailsScreen extends StatelessWidget {
         future: comidilla,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           } else if (snapshot.hasError) {
@@ -29,7 +29,7 @@ class DetailsScreen extends StatelessWidget {
               child: Text('Error: ${snapshot.error}'),
             );
           } else if (!snapshot.hasData || snapshot.data == null) {
-            return Center(
+            return const Center(
               child: Text('No se encontró la receta.'),
             );
           }
@@ -65,8 +65,8 @@ class DetailsScreen extends StatelessWidget {
               SliverList(
                 delegate: SliverChildListDelegate(
                   [
-                    _FotoYNombre(receta: receta),
                     _Overview(receta: receta),
+                    IngredientsCards(receta: receta),
                   ],
                 ),
               ),
@@ -77,6 +77,60 @@ class DetailsScreen extends StatelessWidget {
     );
   }
 }
+
+class _Overview extends StatelessWidget {
+  final MealReceta receta;
+
+  const _Overview({Key? key, required this.receta}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start, // Alinea los textos a la izquierda
+        children: [
+          const SizedBox(height: 20),
+          Text(
+            receta.getTitulo(),
+            textAlign: TextAlign.justify,
+            style: Theme.of(context).textTheme.bodyMedium,
+          ),
+          const SizedBox(height: 20), // Espacio entre los textos
+          Text(
+            'Ingredientes:',
+            style: Theme.of(context).textTheme.titleMedium,
+          ),
+          const SizedBox(height: 10),
+          // Mostrar lista de ingredientes
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: receta.getIngredientesDetalles().map((detalle) {
+              return Text(
+                detalle,
+                style: Theme.of(context).textTheme.bodySmall,
+              );
+            }).toList(),
+          ),
+          const SizedBox(height: 20),
+          Text(
+            'Instrucciones:',
+            style: Theme.of(context).textTheme.titleMedium,
+          ),
+          const SizedBox(height: 10),
+          Text(
+            receta.getInstructions(),
+            textAlign: TextAlign.justify,
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Colors.grey),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+
+/*
 class _CustomAppBar extends StatelessWidget {
   final Meal comida;
 
@@ -111,7 +165,8 @@ class _CustomAppBar extends StatelessWidget {
     );
   }
 }
-
+*/
+/*
 class _FotoYNombre extends StatelessWidget {
   final MealReceta receta;
 
@@ -156,20 +211,4 @@ class _FotoYNombre extends StatelessWidget {
     );
   }
 }
-
-class _Overview extends StatelessWidget {
-  final MealReceta receta;
-
-  const _Overview({Key? key, required this.receta}) : super(key: key);
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-      child: Text(
-        receta.getTitulo(),
-        textAlign: TextAlign.justify,
-        style: Theme.of(context).textTheme.bodyMedium,
-      ),
-    );
-  }
-}
+*/

@@ -5,18 +5,20 @@ import 'package:practica_t3_hp/models/models.dart';
 
 class MealsProvider extends ChangeNotifier {
   final String _baseUrl = 'themealdb.com';
+  final String categoriaPorDefecto = 'Seafood';
 
   List<Meal> mealsPrincipales = [];
   List<MealReceta> mealsSugeridos = [];
+  List<String> fotos = [];
 
   MealsProvider() {
-    getMealsPrincipales();
+    setMealsPrincipales(categoriaPorDefecto);
     getMealsSugeridos();
   }
 
-  getMealsPrincipales() async {
+  setMealsPrincipales(String categoria) async {
     var url =
-        Uri.https(_baseUrl, '/api/json/v1/1/filter.php', {'c': 'Seafood'});
+        Uri.https(_baseUrl, '/api/json/v1/1/filter.php', {'c': categoria});
 
     final result = await http.get(url);
 
@@ -28,6 +30,10 @@ class MealsProvider extends ChangeNotifier {
     } else {
       print('Error: ${result.statusCode}');
     }
+  }
+
+  updatePrincipales(String categoria) async {
+
   }
 
   getMealsSugeridos() async {
@@ -56,8 +62,37 @@ class MealsProvider extends ChangeNotifier {
       notifyListeners();
     } else {
       print('Error: ${result.statusCode}');
-      recetaDetalle = MealReceta(idMeal: "", strMeal: "", strMealThumb: "", strInstructions: "");
+      recetaDetalle = MealReceta(meals: []);
     }
     return recetaDetalle;
+  }
+
+  Future<MealReceta> getDatosRecetaConNombre(String nombre) async {
+    final url = Uri.https(_baseUrl, '/api/json/v1/1/search.php', {'s': nombre});
+    final MealReceta recetaDetalle;
+
+    final result = await http.get(url);
+    if (result.statusCode == 200) {
+      recetaDetalle = MealReceta.fromJson(result.body);
+      notifyListeners();
+    } else {
+      print('Error: ${result.statusCode}');
+      recetaDetalle = MealReceta(meals: []);
+    }
+    return recetaDetalle;
+  }
+
+  List<String> getoFotos(MealReceta receta) {
+    List<String> ingredients = [];
+    if (receta.meals.isNotEmpty) {
+      Map<String, String?> meal = receta.meals.first;
+      for (int i = 1; i <= 20; i++) {
+        String key = 'strIngredient$i';
+        if (meal.containsKey(key) && meal[key] != null && meal[key]!.isNotEmpty) {
+          ingredients.add('https://www.themealdb.com/images/ingredients/${meal[key]}!');
+        }
+      }
+    }
+    return ingredients;
   }
 }

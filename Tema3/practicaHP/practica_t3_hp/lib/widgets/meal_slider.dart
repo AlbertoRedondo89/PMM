@@ -29,7 +29,7 @@ class MealSlider extends StatelessWidget {
         children: [
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 20),
-            child: Text('Populars',
+            child: Text('Random Meals',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
           ),
           const SizedBox(
@@ -64,7 +64,7 @@ class _MealPoster extends StatelessWidget {
         children: [
           GestureDetector(
             onTap: () => Navigator.pushNamed(context, 'details',
-                arguments: meal.idMeal),
+                arguments: meal.getIdMeal()),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20),
               child: FadeInImage(

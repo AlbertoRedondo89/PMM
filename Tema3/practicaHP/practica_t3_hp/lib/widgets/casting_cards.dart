@@ -1,74 +1,76 @@
-/*import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
+import 'package:practica_t3_hp/models/meal_receta.dart';
 import 'package:practica_t3_hp/models/models.dart';
 import 'package:practica_t3_hp/providers/meals_provider.dart';
-import 'package:practica_t3_hp/providers/movies_provider.dart';
 import 'package:provider/provider.dart';
+class IngredientsCards extends StatelessWidget {
+  final MealReceta receta;
 
-class CastingCards extends StatelessWidget {
-  final int idMovie;
-
-  const CastingCards({super.key, required this.idMovie});
+  const IngredientsCards({super.key, required this.receta});
 
   @override
   Widget build(BuildContext context) {
-    final mealsProvider = Provider.of<MealsProvider>(context, listen: false);
+    // Obtener la lista de ingredientes de la receta
+    final ingredients = receta.getIngredients();
 
-    return FutureBuilder(
-      future: mealsProvider.getMovieCast(idMovie),
-      builder: (BuildContext context, AsyncSnapshot<List<Cast>> snapshot) {
-        if (!snapshot.hasData) {
-          return Container(
-            child: const Center(
-              child: CircularProgressIndicator(),
-            ),
-          );
-        }
-
-        final casting = snapshot.data!;
-
-        return Container(
-          margin: const EdgeInsets.only(bottom: 30),
-          width: double.infinity,
-          height: 180,
-          child: ListView.builder(
-            itemCount: casting.length,
-            scrollDirection: Axis.horizontal,
-            itemBuilder: (BuildContext context, int index) =>
-                _CastCard(casting[index]),
+    // Si no hay ingredientes, mostramos un mensaje
+    if (ingredients.isEmpty) {
+      return Container(
+        padding: const EdgeInsets.all(20),
+        child: const Center(
+          child: Text(
+            'No hay ingredientes disponibles.',
+            style: TextStyle(fontSize: 16, color: Colors.grey),
           ),
-        );
-      },
+        ),
+      );
+    }
+
+    // Crear un ListView horizontal para mostrar los ingredientes
+    return Container(
+      margin: const EdgeInsets.only(bottom: 30),
+      width: double.infinity,
+      height: 180,
+      child: ListView.builder(
+        itemCount: ingredients.length,
+        scrollDirection: Axis.horizontal,
+        itemBuilder: (BuildContext context, int index) {
+          final ingredient = ingredients[index];
+          final imageUrl =
+              'https://www.themealdb.com/images/ingredients/$ingredient.png';
+          return _IngredientCard(ingredient, imageUrl);
+        },
+      ),
     );
   }
 }
 
-class _CastCard extends StatelessWidget {
-  final Cast cast;
-  const _CastCard(this.cast);
+class _IngredientCard extends StatelessWidget {
+  final String ingredient;
+  final String imageUrl;
+
+  const _IngredientCard(this.ingredient, this.imageUrl);
+
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 10),
       width: 110,
-      height: 100,
-      // color: Colors.green,
       child: Column(
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(20),
             child: FadeInImage(
               placeholder: const AssetImage('assets/no-image.jpg'),
-              image: NetworkImage(cast.fullProfilePath),
+              image: NetworkImage(imageUrl),
               height: 140,
               width: 100,
               fit: BoxFit.cover,
             ),
           ),
-          const SizedBox(
-            height: 5,
-          ),
+          const SizedBox(height: 5),
           Text(
-            cast.name,
+            ingredient,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
             textAlign: TextAlign.center,
@@ -78,4 +80,3 @@ class _CastCard extends StatelessWidget {
     );
   }
 }
-*/
