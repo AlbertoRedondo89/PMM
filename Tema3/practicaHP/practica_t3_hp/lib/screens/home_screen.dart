@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:practica_t3_hp/providers/meals_provider.dart';
+import 'package:practica_t3_hp/widgets/lista_opciones.dart';
 import 'package:practica_t3_hp/widgets/search_dialog.dart';
 import 'package:practica_t3_hp/widgets/widgets.dart';
 import 'package:provider/provider.dart';
@@ -81,42 +82,8 @@ class HomeScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(
-              height: 100, // Aumenta la altura para acomodar los iconos
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: categories.length,
-                itemBuilder: (BuildContext context, int index) {
-                  final category = categories[index];
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                    child: GestureDetector(
-                      onTap: () {
-                        mealsProvider.setMealsPrincipales(category['name']!);
-                      },
-                      child: Column(
-                        children: [
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          // Icono de categoría
-                          CircleAvatar(
-                            backgroundImage: NetworkImage(category['icon']!),
-                            radius: 30,
-                          ),
-                          const SizedBox(height: 5),
-                          // Nombre de la categoría
-                          Text(
-                            category['name']!,
-                            style: const TextStyle(fontSize: 10),
-                          ),
-                        ],
-                      ),
-                    ),
-                  );
-                },
-              ),
-            ),
+            //Opciones de categorias
+            ListaOpciones(categories: categories, mealsProvider: mealsProvider),
 
             const SizedBox(height: 20),
             // Targetes principals

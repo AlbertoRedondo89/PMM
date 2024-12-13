@@ -71,9 +71,8 @@ class _SearchDialogState extends State<SearchDialog> {
     });
 
     try {
-      final mealsProvider =
-          Provider.of<MealsProvider>(context, listen: false);
-      final receta = await mealsProvider.getDatosRecetaConNombre(query);
+      final mealsProvider = Provider.of<MealsProvider>(context, listen: false);
+      final receta = await mealsProvider.getDatosReceta(query, false);
 
       if (receta != null) {
         Navigator.of(context).pop(); // Cerrar el diálogo

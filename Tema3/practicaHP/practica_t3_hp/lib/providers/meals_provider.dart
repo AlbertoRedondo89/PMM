@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:practica_t3_hp/models/meal_receta.dart';
 import 'package:practica_t3_hp/models/models.dart';
 
 class MealsProvider extends ChangeNotifier {
-  final String _baseUrl = 'www.themealdb.com';
+  final String _baseUrl = 'themealdb.com';
   final String categoriaPorDefecto = 'Seafood';
 
   List<Meal> mealsPrincipales = [];
@@ -32,8 +31,6 @@ class MealsProvider extends ChangeNotifier {
     }
   }
 
-  updatePrincipales(String categoria) async {}
-
   getMealsSugeridos() async {
     var url = Uri.https(_baseUrl, '/api/json/v1/1/random.php');
 
@@ -50,23 +47,13 @@ class MealsProvider extends ChangeNotifier {
     }
   }
 
-  Future<MealReceta> getDatosReceta(String id) async {
-    final url = Uri.https(_baseUrl, '/api/json/v1/1/lookup.php', {'i': id});
-    final MealReceta recetaDetalle;
-
-    final result = await http.get(url);
-    if (result.statusCode == 200) {
-      recetaDetalle = MealReceta.fromJson(result.body);
-      notifyListeners();
+  Future<MealReceta> getDatosReceta(String dato, bool idNombre) async {
+    final url;
+    if (idNombre) {
+      url = Uri.https(_baseUrl, '/api/json/v1/1/lookup.php', {'i': dato});
     } else {
-      print('Error: ${result.statusCode}');
-      recetaDetalle = MealReceta(meals: []);
+      url = Uri.https(_baseUrl, '/api/json/v1/1/search.php', {'s': dato});
     }
-    return recetaDetalle;
-  }
-
-  Future<MealReceta> getDatosRecetaConNombre(String nombre) async {
-    final url = Uri.https(_baseUrl, '/api/json/v1/1/search.php', {'s': nombre});
     final MealReceta recetaDetalle;
 
     final result = await http.get(url);

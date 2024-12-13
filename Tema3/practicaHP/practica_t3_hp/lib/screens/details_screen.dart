@@ -11,7 +11,8 @@ class DetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final String comida = ModalRoute.of(context)?.settings.arguments as String;
     final mealsProvider = Provider.of<MealsProvider>(context, listen: false);
-    final Future<MealReceta?> comidilla = mealsProvider.getDatosReceta(comida);
+    final Future<MealReceta?> comidilla =
+        mealsProvider.getDatosReceta(comida, true);
 
     return Scaffold(
       body: FutureBuilder<MealReceta?>(
