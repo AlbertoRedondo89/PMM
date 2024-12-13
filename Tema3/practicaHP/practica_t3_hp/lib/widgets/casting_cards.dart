@@ -76,6 +76,7 @@ class _IngredientCard extends StatelessWidget {
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
             textAlign: TextAlign.center,
+            style: const TextStyle(fontSize: 12),
           )
         ],
       ),

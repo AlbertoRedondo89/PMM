@@ -11,6 +11,7 @@ Los métodos permiten actualizar las listas de recetas que se muestran, además 
 class MealsProvider extends ChangeNotifier {
   final String _baseUrl = 'themealdb.com';
   final String categoriaPorDefecto = 'Seafood';
+  String categoriaSeleccionada = 'Seafood';
 
   List<Meal> mealsPrincipales = [];
   List<MealReceta> mealsSugeridos = [];
@@ -32,6 +33,7 @@ class MealsProvider extends ChangeNotifier {
       final mealsResponse = MealsResponse.fromJson(result.body);
       print(mealsResponse);
       mealsPrincipales = mealsResponse.meals;
+      categoriaSeleccionada = categoria;
       notifyListeners();
     } else {
       print('Error: ${result.statusCode}');
@@ -55,6 +57,8 @@ class MealsProvider extends ChangeNotifier {
     }
   }
 
+  // Método para acceder a la información completa de una receta. 
+  // Recibe un String por parámetro y un bool. En función del bool, buscará el String como id o como nombre en la API.
   Future<MealReceta> getDatosReceta(String dato, bool idNombre) async {
     final url;
     if (idNombre) {
@@ -75,6 +79,7 @@ class MealsProvider extends ChangeNotifier {
     return recetaDetalle;
   }
 
+  // Método para generar la lista de urls en función de una lista de ingredientes que recibe por parámetro. 
   List<String> getoFotos(MealReceta receta) {
     List<String> ingredients = [];
     if (receta.meals.isNotEmpty) {

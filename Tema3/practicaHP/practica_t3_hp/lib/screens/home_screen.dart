@@ -76,7 +76,7 @@ class HomeScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Comiditas'),
+        title: const Text('The Chef App'),
         elevation: 0,
         actions: [
           IconButton(
@@ -91,7 +91,15 @@ class HomeScreen extends StatelessWidget {
             //Opciones de categorias
             ListaOpciones(categories: categories, mealsProvider: mealsProvider),
 
-            const SizedBox(height: 20),
+            const SizedBox(height: 40),
+            Text(
+              'Category: ${mealsProvider.categoriaSeleccionada}',
+              style: const TextStyle(
+                color: Color.fromARGB(255, 90, 69, 5),
+                fontSize: 30,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
             // Targetes principals
             CardSwiper(meals: mealsProvider.mealsPrincipales),
 

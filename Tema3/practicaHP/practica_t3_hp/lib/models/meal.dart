@@ -1,5 +1,8 @@
 import 'dart:convert';
 
+// Clase básica de recetas, contiene los datos esenciales para mostrar foto y nombre de las recetas además del ID
+// para buscar sus detalles si es necesario. 
+
 class Meal {
   String strMeal;
   String strMealThumb;

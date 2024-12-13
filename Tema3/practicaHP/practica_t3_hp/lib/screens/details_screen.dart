@@ -32,7 +32,7 @@ class DetailsScreen extends StatelessWidget {
             );
           } else if (!snapshot.hasData || snapshot.data == null) {
             return const Center(
-              child: Text('No se encontró la receta.'),
+              child: Text('Meal not found.'),
             );
           }
 
@@ -48,13 +48,18 @@ class DetailsScreen extends StatelessWidget {
                   centerTitle: true,
                   titlePadding: const EdgeInsets.all(0),
                   title: Container(
+                    height: 40.0,
                     width: double.infinity,
                     alignment: Alignment.bottomCenter,
-                    color: Colors.black12,
+                    color: Colors.black.withOpacity(0.3),
                     padding: const EdgeInsets.only(bottom: 10),
                     child: Text(
                       receta.getTitulo(),
-                      style: const TextStyle(fontSize: 16),
+                      style: const TextStyle(
+                        color: Color.fromARGB(255, 255, 255, 255),
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                   background: FadeInImage(
@@ -93,16 +98,14 @@ class _Overview extends StatelessWidget {
         crossAxisAlignment:
             CrossAxisAlignment.start, // Alinea los textos a la izquierda
         children: [
-          const SizedBox(height: 20),
-          Text(
-            receta.getTitulo(),
-            textAlign: TextAlign.justify,
-            style: Theme.of(context).textTheme.bodyMedium,
-          ),
           const SizedBox(height: 20), // Espacio entre los textos
-          Text(
-            'Ingredientes:',
-            style: Theme.of(context).textTheme.titleMedium,
+          const Text(
+            'Ingredients:',
+             style: TextStyle(
+                color: Color.fromARGB(255, 90, 69, 5),
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
           ),
           const SizedBox(height: 10),
           // Mostrar lista de ingredientes
@@ -116,9 +119,13 @@ class _Overview extends StatelessWidget {
             }).toList(),
           ),
           const SizedBox(height: 20),
-          Text(
-            'Instrucciones:',
-            style: Theme.of(context).textTheme.titleMedium,
+          const Text(
+            'Directions:',
+                style: TextStyle(
+                color: Color.fromARGB(255, 90, 69, 5),
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
           ),
           const SizedBox(height: 10),
           Text(

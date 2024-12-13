@@ -1,5 +1,8 @@
 import 'dart:convert';
 
+//Clase para mapear las recetas detalladas
+// Al no tener parámetros fijos, he creado métodos para acceder a los que se necesitan. 
+
 class MealReceta {
   List<Map<String, String?>> meals;
   late final List<String> ingredientes;
@@ -14,20 +17,16 @@ class MealReceta {
   factory MealReceta.fromJson(String str) =>
       MealReceta.fromMap(json.decode(str));
 
-  //String toJson() => json.encode(toMap());
-
   factory MealReceta.fromMap(Map<String, dynamic> json) => MealReceta(
         meals: List<Map<String, String?>>.from(json["meals"].map(
             (x) => Map.from(x).map((k, v) => MapEntry<String, String?>(k, v)))),
       );
 
-// Metodos para obtener datos concretos, ya que la clase no tiene atributos fijos.
-
   String getImage() {
     if (meals.isNotEmpty && meals.first.containsKey('strMealThumb')) {
       return meals.first['strMealThumb'] ?? "";
     }
-    return ""; // Retorna una cadena vacía si no hay imagen disponible.
+    return ""; 
   }
 
   String getTitulo() {
@@ -51,6 +50,7 @@ class MealReceta {
     return "";
   }
 
+  // Método para generar las dos listas, la de ingredientes y la de ingredientes con cantidad. 
   void _generaIngredientes() {
     ingredientes = [];
     ingredientesDetalles = [];
@@ -83,38 +83,3 @@ class MealReceta {
     return ingredientesDetalles;
   }
 }
-
-/*
-class MealReceta {
-  final String idMeal;
-  final String strMeal;
-  final String strMealThumb;
-  final String strInstructions;
-
-  MealReceta({
-    required this.idMeal,
-    required this.strMeal,
-    required this.strMealThumb,
-    required this.strInstructions,
-  });
-
-  factory MealReceta.fromJson(String str) =>
-      MealReceta.fromMap(json.decode(str)['meals'][0]);
-
-  factory MealReceta.fromMap(Map<String, dynamic> json) => MealReceta(
-        idMeal: json['idMeal'] ?? '',
-        strMeal: json['strMeal'] ?? '',
-        strMealThumb: json['strMealThumb'] ?? '', 
-        strInstructions: json['strInstructions'] ?? '',
-      );
-
-  String getImage() => strMealThumb;
-
-  String getTitulo() => strMeal;
-
-  String getIdMeal() => idMeal;
-
-  String getInstructions() => strInstructions;
-}
-
-*/
