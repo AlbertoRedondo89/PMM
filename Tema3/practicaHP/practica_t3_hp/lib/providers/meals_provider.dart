@@ -2,6 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:practica_t3_hp/models/models.dart';
 
+/*
+Provider de la aplicación, conecta con la API https://www.themealdb.com/api.php
+Obtiene las listas de recetas y recetas detalladas que necesita la aplicación.
+Los métodos permiten actualizar las listas de recetas que se muestran, además de recibir las recetas completas en base a un id o nombre. 
+*/
+
 class MealsProvider extends ChangeNotifier {
   final String _baseUrl = 'themealdb.com';
   final String categoriaPorDefecto = 'Seafood';
@@ -15,6 +21,7 @@ class MealsProvider extends ChangeNotifier {
     getMealsSugeridos();
   }
 
+// Método para generar la lista principal de recetas. Recibe por parámetro la categoría de las recetas que buscará. 
   setMealsPrincipales(String categoria) async {
     var url =
         Uri.https(_baseUrl, '/api/json/v1/1/filter.php', {'c': categoria});
@@ -31,6 +38,7 @@ class MealsProvider extends ChangeNotifier {
     }
   }
 
+  // Metodo para enerar lista de recetas aleatorias. Hace diez llamadas a la api para obtener recetas aleatorias y unirlas en una lista. 
   getMealsSugeridos() async {
     var url = Uri.https(_baseUrl, '/api/json/v1/1/random.php');
 

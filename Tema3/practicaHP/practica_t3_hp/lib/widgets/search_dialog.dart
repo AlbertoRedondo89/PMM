@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:practica_t3_hp/providers/meals_provider.dart';
 import 'package:provider/provider.dart';
-
+/*
+Widget del buscador. Pide una categoría al usuario y comprueba si hay resultados en la api. 
+Si los hay, abre una detail_screen con la receta.
+*/
 class SearchDialog extends StatefulWidget {
   const SearchDialog({Key? key}) : super(key: key);
 

@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:practica_t3_hp/models/meal_receta.dart';
+import 'package:practica_t3_hp/models/models.dart';
 import 'package:practica_t3_hp/providers/meals_provider.dart';
 import 'package:practica_t3_hp/widgets/widgets.dart';
 import 'package:provider/provider.dart';
+
+/*
+Recibe el id de una receta como parámetro. Hace una llamada a la API mediante el provider para obtener todos los datos.
+Muestra todos los datos de la receta y, por último, usa el widget casting_cards para mostrar las imágenes de los ingredientes. 
+*/
 
 class DetailsScreen extends StatelessWidget {
   const DetailsScreen({super.key});
@@ -11,8 +16,7 @@ class DetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final String comida = ModalRoute.of(context)?.settings.arguments as String;
     final mealsProvider = Provider.of<MealsProvider>(context, listen: false);
-    final Future<MealReceta?> comidilla =
-        mealsProvider.getDatosReceta(comida, true);
+    final Future<MealReceta?> comidilla = mealsProvider.getDatosReceta(comida, true);
 
     return Scaffold(
       body: FutureBuilder<MealReceta?>(
@@ -131,86 +135,3 @@ class _Overview extends StatelessWidget {
   }
 }
 
-
-/*
-class _CustomAppBar extends StatelessWidget {
-  final Meal comida;
-
-  const _CustomAppBar({required this.comida});
-  @override
-  Widget build(BuildContext context) {
-    // Exactament igual que la AppBaer però amb bon comportament davant scroll
-    return SliverAppBar(
-      backgroundColor: Colors.indigo,
-      expandedHeight: 200,
-      floating: false,
-      pinned: true,
-      flexibleSpace: FlexibleSpaceBar(
-        centerTitle: true,
-        titlePadding: const EdgeInsets.all(0),
-        title: Container(
-          width: double.infinity,
-          alignment: Alignment.bottomCenter,
-          color: Colors.black12,
-          padding: const EdgeInsets.only(bottom: 10),
-          child: Text(
-            comida.strMeal,
-            style: const TextStyle(fontSize: 16),
-          ),
-        ),
-        background: FadeInImage(
-          placeholder: const AssetImage('assets/loading.gif'),
-          image: NetworkImage(comida.strMealThumb),
-          fit: BoxFit.cover,
-        ),
-      ),
-    );
-  }
-}
-*/
-/*
-class _FotoYNombre extends StatelessWidget {
-  final MealReceta receta;
-
-  const _FotoYNombre({Key? key, required this.receta}) : super(key: key);
-  @override
-  Widget build(BuildContext context) {
-    final TextTheme textTheme = Theme.of(context).textTheme;
-    return Container(
-      margin: const EdgeInsets.only(top: 20),
-      padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: Row(
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(20),
-            child: FadeInImage(
-              placeholder: const AssetImage('assets/loading.gif'),
-              image: NetworkImage(receta.getImage()),
-              height: 150,
-            ),
-          ),
-          const SizedBox(
-            width: 20,
-          ),
-          Column(
-            children: [
-              Text(
-                receta.getTitulo(),
-                style: textTheme.headlineLarge,
-                overflow: TextOverflow.ellipsis,
-                maxLines: 2,
-              ),
-              Text(
-                receta.getTitulo(),
-                style: textTheme.titleMedium,
-                overflow: TextOverflow.ellipsis,
-                maxLines: 2,
-              ),
-            ],
-          )
-        ],
-      ),
-    );
-  }
-}
-*/

@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:practica_t3_hp/providers/meals_provider.dart';
-import 'package:practica_t3_hp/widgets/lista_opciones.dart';
-import 'package:practica_t3_hp/widgets/search_dialog.dart';
 import 'package:practica_t3_hp/widgets/widgets.dart';
 import 'package:provider/provider.dart';
+
+/*
+Pagina principal de la aplicación. 
+En la parte superior hay botones para seleccionar una categoría. Al pulsarlos se actualiza en CardSwiper.
+Debajo está el CardSwiper con una lista de recetas de una categoria concreta inicialmente, que se actualiza al elegir otra categoria.
+Debajo, un MealSlider muestra diez recetas aleatorias. 
+Al pulsar sobre cualquiera de ellas mostrará la receta completa en una detail_screen. 
+*/
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});

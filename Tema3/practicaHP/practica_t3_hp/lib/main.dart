@@ -3,6 +3,10 @@ import 'package:practica_t3_hp/providers/meals_provider.dart';
 import 'package:practica_t3_hp/screens/screens.dart';
 import 'package:provider/provider.dart';
 
+/*
+CLASE MAIN
+Clase principal que inicia la aplicación y organiza las rutas del resto de páginas
+*/
 void main() => runApp(const AppState());
 
 class AppState extends StatelessWidget {
