@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:practica_t3_hp/models/meal.dart';
 import 'package:practica_t3_hp/models/meal_receta.dart';
-import 'package:practica_t3_hp/models/models.dart';
 
 class MealSlider extends StatelessWidget {
   final List<MealReceta> mealsAlAzar;

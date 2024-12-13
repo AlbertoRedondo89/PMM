@@ -32,11 +32,12 @@ class MyApp extends StatelessWidget {
       title: 'Comidillas',
       initialRoute: 'home',
       routes: {
-        'home': (BuildContext context) => HomeScreen(),
-        'details': (BuildContext context) => DetailsScreen(),
+        'home': (BuildContext context) => const HomeScreen(),
+        'details': (BuildContext context) => const DetailsScreen(),
       },
-      theme: ThemeData.light()
-          .copyWith(appBarTheme: const AppBarTheme(color: Colors.indigo)),
+      theme: ThemeData.light().copyWith(
+          appBarTheme:
+              const AppBarTheme(color: Color.fromARGB(255, 189, 129, 80))),
     );
   }
 }

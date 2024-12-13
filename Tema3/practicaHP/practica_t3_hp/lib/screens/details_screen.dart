@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:practica_t3_hp/models/meal.dart';
 import 'package:practica_t3_hp/models/meal_receta.dart';
-import 'package:practica_t3_hp/models/models.dart';
 import 'package:practica_t3_hp/providers/meals_provider.dart';
 import 'package:practica_t3_hp/widgets/widgets.dart';
 import 'package:provider/provider.dart';
@@ -11,7 +9,6 @@ class DetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
     final String comida = ModalRoute.of(context)?.settings.arguments as String;
     final mealsProvider = Provider.of<MealsProvider>(context, listen: false);
     final Future<MealReceta?> comidilla = mealsProvider.getDatosReceta(comida);
@@ -88,7 +85,8 @@ class _Overview extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start, // Alinea los textos a la izquierda
+        crossAxisAlignment:
+            CrossAxisAlignment.start, // Alinea los textos a la izquierda
         children: [
           const SizedBox(height: 20),
           Text(
@@ -121,7 +119,10 @@ class _Overview extends StatelessWidget {
           Text(
             receta.getInstructions(),
             textAlign: TextAlign.justify,
-            style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Colors.grey),
+            style: Theme.of(context)
+                .textTheme
+                .bodySmall
+                ?.copyWith(color: Colors.grey),
           ),
         ],
       ),

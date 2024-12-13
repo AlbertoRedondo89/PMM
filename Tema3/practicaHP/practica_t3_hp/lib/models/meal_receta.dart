@@ -1,7 +1,5 @@
 import 'dart:convert';
 
-import 'package:provider/provider.dart';
-
 class MealReceta {
   List<Map<String, String?>> meals;
   late final List<String> ingredientes;
@@ -9,9 +7,9 @@ class MealReceta {
 
   MealReceta({
     required this.meals,
-    }) {
-      _generaIngredientes();
-    }
+  }) {
+    _generaIngredientes();
+  }
 
   factory MealReceta.fromJson(String str) =>
       MealReceta.fromMap(json.decode(str));
@@ -23,7 +21,7 @@ class MealReceta {
             (x) => Map.from(x).map((k, v) => MapEntry<String, String?>(k, v)))),
       );
 
-// Metodos para obtener datos concretos, ya que la clase no tiene atributos fijos. 
+// Metodos para obtener datos concretos, ya que la clase no tiene atributos fijos.
 
   String getImage() {
     if (meals.isNotEmpty && meals.first.containsKey('strMealThumb')) {
@@ -52,6 +50,7 @@ class MealReceta {
     }
     return "";
   }
+
   void _generaIngredientes() {
     ingredientes = [];
     ingredientesDetalles = [];
@@ -60,11 +59,15 @@ class MealReceta {
       for (int i = 1; i <= 20; i++) {
         String key = 'strIngredient$i';
         String keyCantidad = 'strMeasure$i';
-        if (meal.containsKey(key) && meal[key] != null && meal[key]!.isNotEmpty) {
+        if (meal.containsKey(key) &&
+            meal[key] != null &&
+            meal[key]!.isNotEmpty) {
           ingredientes.add(meal[key]!);
-            if (meal.containsKey(keyCantidad) && meal[keyCantidad] != null && meal[keyCantidad]!.isNotEmpty) {
-              ingredientesDetalles.add('${meal[keyCantidad]!} - ${meal[key]}');
-            } else {
+          if (meal.containsKey(keyCantidad) &&
+              meal[keyCantidad] != null &&
+              meal[keyCantidad]!.isNotEmpty) {
+            ingredientesDetalles.add('${meal[keyCantidad]!} - ${meal[key]}');
+          } else {
             ingredientesDetalles.add(meal[key]!); // Solo el ingrediente
           }
         }
@@ -75,6 +78,7 @@ class MealReceta {
   List<String> getIngredients() {
     return ingredientes;
   }
+
   List<String> getIngredientesDetalles() {
     return ingredientesDetalles;
   }
@@ -114,5 +118,3 @@ class MealReceta {
 }
 
 */
-  
-

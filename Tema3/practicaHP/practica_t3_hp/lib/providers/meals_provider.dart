@@ -4,7 +4,7 @@ import 'package:practica_t3_hp/models/meal_receta.dart';
 import 'package:practica_t3_hp/models/models.dart';
 
 class MealsProvider extends ChangeNotifier {
-  final String _baseUrl = 'themealdb.com';
+  final String _baseUrl = 'www.themealdb.com';
   final String categoriaPorDefecto = 'Seafood';
 
   List<Meal> mealsPrincipales = [];
@@ -32,9 +32,7 @@ class MealsProvider extends ChangeNotifier {
     }
   }
 
-  updatePrincipales(String categoria) async {
-
-  }
+  updatePrincipales(String categoria) async {}
 
   getMealsSugeridos() async {
     var url = Uri.https(_baseUrl, '/api/json/v1/1/random.php');
@@ -88,8 +86,11 @@ class MealsProvider extends ChangeNotifier {
       Map<String, String?> meal = receta.meals.first;
       for (int i = 1; i <= 20; i++) {
         String key = 'strIngredient$i';
-        if (meal.containsKey(key) && meal[key] != null && meal[key]!.isNotEmpty) {
-          ingredients.add('https://www.themealdb.com/images/ingredients/${meal[key]}!');
+        if (meal.containsKey(key) &&
+            meal[key] != null &&
+            meal[key]!.isNotEmpty) {
+          ingredients.add(
+              'https://www.themealdb.com/images/ingredients/${meal[key]}!');
         }
       }
     }

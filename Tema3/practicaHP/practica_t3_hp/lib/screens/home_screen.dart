@@ -10,7 +10,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final mealsProvider = Provider.of<MealsProvider>(context, listen: true);
-     // Lista de categorías
+    // Lista de categorías
     // Lista de categorías con sus imágenes
     final categories = [
       {
@@ -96,7 +96,9 @@ class HomeScreen extends StatelessWidget {
                       },
                       child: Column(
                         children: [
-                          const SizedBox(height: 20,),
+                          const SizedBox(
+                            height: 20,
+                          ),
                           // Icono de categoría
                           CircleAvatar(
                             backgroundImage: NetworkImage(category['icon']!),
@@ -115,6 +117,7 @@ class HomeScreen extends StatelessWidget {
                 },
               ),
             ),
+
             const SizedBox(height: 20),
             // Targetes principals
             CardSwiper(meals: mealsProvider.mealsPrincipales),
@@ -126,7 +129,7 @@ class HomeScreen extends StatelessWidget {
       ),
     );
   }
-  
+
   void _showSearchDialog(BuildContext context) {
     showDialog(
       context: context,

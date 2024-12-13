@@ -23,9 +23,7 @@ class CardSwiper extends StatelessWidget {
 
     return SizedBox(
         width: double.infinity,
-        // Aquest multiplicador estableix el tant per cent de pantalla ocupada 50%
         height: size.height * 0.5,
-        // color: Colors.red,
         child: Swiper(
           itemCount: meals.length,
           layout: SwiperLayout.STACK,
@@ -38,13 +36,28 @@ class CardSwiper extends StatelessWidget {
                   arguments: meal.idMeal),
               child: Stack(
                 children: [
-                  ClipRRect(
-                    child: FadeInImage(
-                      placeholder: const AssetImage('assets/no-image.jpg'),
-                      image: NetworkImage(meal.strMealThumb),
-                      fit: BoxFit.cover,
-                      width: double.infinity,
-                      height: double.infinity,
+                  Container(
+                    decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.7),
+                          blurRadius: 8,
+                          offset: Offset(0, 4), // Desplazamiento de la sombra
+                        ),
+                      ],
+                      borderRadius: BorderRadius.circular(
+                          10), // Opcional: bordes redondeados
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(
+                          10), // Bordes redondeados para la imagen
+                      child: FadeInImage(
+                        placeholder: const AssetImage('assets/no-image.jpg'),
+                        image: NetworkImage(meal.strMealThumb),
+                        fit: BoxFit.cover,
+                        width: double.infinity,
+                        height: double.infinity,
+                      ),
                     ),
                   ),
                   Positioned(

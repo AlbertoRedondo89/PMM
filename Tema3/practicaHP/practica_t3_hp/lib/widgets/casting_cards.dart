@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:practica_t3_hp/models/meal_receta.dart';
-import 'package:practica_t3_hp/models/models.dart';
-import 'package:practica_t3_hp/providers/meals_provider.dart';
-import 'package:provider/provider.dart';
+
 class IngredientsCards extends StatelessWidget {
   final MealReceta receta;
 
