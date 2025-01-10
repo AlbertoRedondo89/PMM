@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:practica_t3_hp/models/meal.dart';
 import 'package:practica_t3_hp/models/models.dart';
 
 class MealSlider extends StatelessWidget {
-  final List<Meal> meals;
-  const MealSlider({super.key, required this.meals});
+  final List<MealReceta> mealsAlAzar;
+  const MealSlider({super.key, required this.mealsAlAzar});
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
 
-    if (meals.isEmpty) {
+    if (mealsAlAzar.isEmpty) {
       return Container(
         width: double.infinity,
         height: size.height * 0.5,
@@ -28,7 +27,7 @@ class MealSlider extends StatelessWidget {
         children: [
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 20),
-            child: Text('Populars',
+            child: Text('Random Meals',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
           ),
           const SizedBox(
@@ -37,9 +36,9 @@ class MealSlider extends StatelessWidget {
           Expanded(
             child: ListView.builder(
                 scrollDirection: Axis.horizontal,
-                itemCount: meals.length,
+                itemCount: mealsAlAzar.length,
                 itemBuilder: (_, int index) => _MealPoster(
-                      meal: meals[index],
+                      meal: mealsAlAzar[index],
                     )),
           )
         ],
@@ -49,7 +48,7 @@ class MealSlider extends StatelessWidget {
 }
 
 class _MealPoster extends StatelessWidget {
-  final Meal meal;
+  final MealReceta meal;
   const _MealPoster({Key? key, required this.meal}) : super(key: key);
 
   @override
@@ -63,12 +62,12 @@ class _MealPoster extends StatelessWidget {
         children: [
           GestureDetector(
             onTap: () => Navigator.pushNamed(context, 'details',
-                arguments: 'detalls peli'),
+                arguments: meal.getIdMeal()),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20),
               child: FadeInImage(
                 placeholder: const AssetImage('assets/no-image.jpg'),
-                image: NetworkImage(meal.strMealThumb),
+                image: NetworkImage(meal.getImage()),
                 width: 130,
                 height: 190,
                 fit: BoxFit.cover,
@@ -80,7 +79,7 @@ class _MealPoster extends StatelessWidget {
           ),
           Expanded(
             child: Text(
-              meal.strMeal,
+              meal.getTitulo(),
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
               textAlign: TextAlign.center,

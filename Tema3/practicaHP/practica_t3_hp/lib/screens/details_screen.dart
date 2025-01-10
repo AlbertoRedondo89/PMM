@@ -1,153 +1,144 @@
 import 'package:flutter/material.dart';
-import 'package:practica_t3_hp/models/meal.dart';
 import 'package:practica_t3_hp/models/models.dart';
+import 'package:practica_t3_hp/providers/meals_provider.dart';
 import 'package:practica_t3_hp/widgets/widgets.dart';
+import 'package:provider/provider.dart';
+
+/*
+Recibe el id de una receta como parámetro. Hace una llamada a la API mediante el provider para obtener todos los datos.
+Muestra todos los datos de la receta y, por último, usa el widget casting_cards para mostrar las imágenes de los ingredientes. 
+*/
 
 class DetailsScreen extends StatelessWidget {
   const DetailsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // TODO: Canviar després per una instància de Peli
-    final Meal comidilla = ModalRoute.of(context)?.settings.arguments as Meal;
+    final String comida = ModalRoute.of(context)?.settings.arguments as String;
+    final mealsProvider = Provider.of<MealsProvider>(context, listen: false);
+    final Future<MealReceta?> comidilla = mealsProvider.getDatosReceta(comida, true);
 
     return Scaffold(
-      body: CustomScrollView(
-        slivers: [
-          //_CustomAppBar(movie: comidilla),
-          SliverList(
-            delegate: SliverChildListDelegate(
-              [
-                _PosterAndTitile(movie: comidilla),
-                _Overview(
-                  movie: comidilla,
+      body: FutureBuilder<MealReceta?>(
+        future: comidilla,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          } else if (snapshot.hasError) {
+            return Center(
+              child: Text('Error: ${snapshot.error}'),
+            );
+          } else if (!snapshot.hasData || snapshot.data == null) {
+            return const Center(
+              child: Text('Meal not found.'),
+            );
+          }
+
+          final receta = snapshot.data!;
+          return CustomScrollView(
+            slivers: [
+              SliverAppBar(
+                backgroundColor: Colors.indigo,
+                expandedHeight: 200,
+                floating: false,
+                pinned: true,
+                flexibleSpace: FlexibleSpaceBar(
+                  centerTitle: true,
+                  titlePadding: const EdgeInsets.all(0),
+                  title: Container(
+                    height: 40.0,
+                    width: double.infinity,
+                    alignment: Alignment.bottomCenter,
+                    color: Colors.black.withOpacity(0.3),
+                    padding: const EdgeInsets.only(bottom: 10),
+                    child: Text(
+                      receta.getTitulo(),
+                      style: const TextStyle(
+                        color: Color.fromARGB(255, 255, 255, 255),
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  background: FadeInImage(
+                    placeholder: const AssetImage('assets/loading.gif'),
+                    image: NetworkImage(receta.getImage()),
+                    fit: BoxFit.cover,
+                  ),
                 ),
-                _Overview(movie: comidilla),
-                //CastingCards(idMovie: 2),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _CustomAppBar extends StatelessWidget {
-  final Meal comida;
-
-  const _CustomAppBar({required this.comida});
-  @override
-  Widget build(BuildContext context) {
-    // Exactament igual que la AppBaer però amb bon comportament davant scroll
-    return SliverAppBar(
-      backgroundColor: Colors.indigo,
-      expandedHeight: 200,
-      floating: false,
-      pinned: true,
-      flexibleSpace: FlexibleSpaceBar(
-        centerTitle: true,
-        titlePadding: const EdgeInsets.all(0),
-        title: Container(
-          width: double.infinity,
-          alignment: Alignment.bottomCenter,
-          color: Colors.black12,
-          padding: const EdgeInsets.only(bottom: 10),
-          child: Text(
-            comida.strMeal,
-            style: const TextStyle(fontSize: 16),
-          ),
-        ),
-        background: FadeInImage(
-          placeholder: const AssetImage('assets/loading.gif'),
-          image: NetworkImage(comida.strMealThumb),
-          fit: BoxFit.cover,
-        ),
-      ),
-    );
-  }
-}
-
-class _PosterAndTitile extends StatelessWidget {
-  final Meal movie;
-
-  const _PosterAndTitile({Key? key, required this.movie}) : super(key: key);
-  @override
-  Widget build(BuildContext context) {
-    final TextTheme textTheme = Theme.of(context).textTheme;
-    return Container(
-      margin: const EdgeInsets.only(top: 20),
-      padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: Row(
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(20),
-            child: FadeInImage(
-              placeholder: const AssetImage('assets/loading.gif'),
-              image: NetworkImage(movie.idMeal),
-              height: 150,
-            ),
-          ),
-          const SizedBox(
-            width: 20,
-          ),
-          Column(
-            children: [
-              Text(
-                movie.idMeal,
-                style: textTheme.headlineLarge,
-                overflow: TextOverflow.ellipsis,
-                maxLines: 2,
               ),
-              Text(
-                movie.idMeal,
-                style: textTheme.titleMedium,
-                overflow: TextOverflow.ellipsis,
-                maxLines: 2,
+              SliverList(
+                delegate: SliverChildListDelegate(
+                  [
+                    _Overview(receta: receta),
+                    IngredientsCards(receta: receta),
+                  ],
+                ),
               ),
-              Row(
-                children: [
-                  ..._buildStarIcons(4),
-                  const SizedBox(width: 5),
-                  //Text('Nota: ${movie.voteAverage}', style: textTheme.bodyMedium),
-                ],
-              )
             ],
-          )
-        ],
+          );
+        },
       ),
     );
-  }
-
-  List<Widget> _buildStarIcons(double rating) {
-    return List.generate(10, (index) {
-      if (rating >= index + 1) {
-        return const Icon(Icons.star,
-            size: 15, color: Colors.amber); // Estrella llena
-      } else if (rating > index && rating < index + 1) {
-        return const Icon(Icons.star_half,
-            size: 15, color: Colors.amber); // Media estrella
-      } else {
-        return const Icon(Icons.star_border,
-            size: 15, color: Colors.grey); // Estrella vacía
-      }
-    });
   }
 }
 
 class _Overview extends StatelessWidget {
-  final Meal movie;
+  final MealReceta receta;
 
-  const _Overview({Key? key, required this.movie}) : super(key: key);
+  const _Overview({Key? key, required this.receta}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-      child: Text(
-        movie.idMeal,
-        textAlign: TextAlign.justify,
-        style: Theme.of(context).textTheme.bodyMedium,
+      child: Column(
+        crossAxisAlignment:
+            CrossAxisAlignment.start, // Alinea los textos a la izquierda
+        children: [
+          const SizedBox(height: 20), // Espacio entre los textos
+          const Text(
+            'Ingredients:',
+             style: TextStyle(
+                color: Color.fromARGB(255, 90, 69, 5),
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+          ),
+          const SizedBox(height: 10),
+          // Mostrar lista de ingredientes
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: receta.getIngredientesDetalles().map((detalle) {
+              return Text(
+                detalle,
+                style: Theme.of(context).textTheme.bodySmall,
+              );
+            }).toList(),
+          ),
+          const SizedBox(height: 20),
+          const Text(
+            'Directions:',
+                style: TextStyle(
+                color: Color.fromARGB(255, 90, 69, 5),
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+          ),
+          const SizedBox(height: 10),
+          Text(
+            receta.getInstructions(),
+            textAlign: TextAlign.justify,
+            style: Theme.of(context)
+                .textTheme
+                .bodySmall
+                ?.copyWith(color: Colors.grey),
+          ),
+        ],
       ),
     );
   }
 }
+

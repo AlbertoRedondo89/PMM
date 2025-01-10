@@ -1,6 +1,4 @@
-import 'dart:convert';
-
-import 'package:practica_t3_hp/models/meal.dart';
+import 'package:practica_t3_hp/models/models.dart';
 
 class MealsResponse {
   List<Meal> meals;
