@@ -20,24 +20,10 @@ class HomeScreen extends StatelessWidget {
             if (state is NewsLoading) {
               return const Center(child: CircularProgressIndicator());
             } else if (state is NewsLoaded) {
-              return ListView.builder(
-                itemCount: state.articles.length,
-                itemBuilder: (context, index) {
-                  final article = state.articles[index];
-                  return ListTile(
-                    leading: Image.network(
-                      article.urlToImage,
-                      width: 100,
-                      height: 100,
-                      fit: BoxFit.cover,
-                    ),
-                    title: Text(article.title),
-                    subtitle: Text(article.description),
-                    onTap: () {
-                      // Acción al tocar una noticia
-                    },
-                  );
-                },
+              // Usamos el widget NewsSlider para mostrar la lista de noticias
+              return Padding(
+                padding: const EdgeInsets.symmetric(vertical: 20),
+                child: NewsSlider(news: state.articles),
               );
             } else if (state is NewsError) {
               return Center(child: Text(state.message));

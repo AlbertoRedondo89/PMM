@@ -10,23 +10,28 @@ class NewsCubit extends Cubit<NewsState> {
   NewsCubit() : super(NewsInitial());
 
   final String _apiKey = '74b85f61f06b449f8f37474e45c74902';
-  final String _baseUrl = 'https://newsapi.org/v2/everything?q=animal&language=es';
+  final String _baseUrl = 'https://newsapi.org/v2/everything';
 
-  Future<void> fetchNews() async {
-    emit(NewsLoading());
-
+ void fetchNews() async {
     try {
-      final url = Uri.parse('$_baseUrl?country=us&apiKey=$_apiKey');
-      final response = await http.get(url);
+      emit(NewsLoading());
+      final response = await http.get(
+        Uri.parse('https://newsapi.org/v2/everything?q=animal&language=es&apiKey=74b85f61f06b449f8f37474e45c74902'),
+      );
 
       if (response.statusCode == 200) {
         final newsResponse = NewsResponse.fromJson(response.body);
+        print('Noticias cargadas: ${newsResponse.articles.length}');
+
         emit(NewsLoaded(newsResponse.articles));
       } else {
-        emit(NewsError('Error al cargar las noticias'));
+        print('Error en la respuesta de la API: ${response.statusCode}');
+        emit(NewsError('Error al cargar las noticias: ${response.statusCode}'));
       }
-    } catch (e) {
-      emit(NewsError('Error de conexión: ${e.toString()}'));
+    } catch (e, stackTrace) {
+      print('Excepción capturada: $e');
+      print('StackTrace: $stackTrace');
+      emit(NewsError('Error de conexión: $e'));
     }
   }
 }

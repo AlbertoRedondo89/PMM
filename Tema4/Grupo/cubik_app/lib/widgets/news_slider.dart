@@ -1,7 +1,8 @@
+import 'package:cubik_app/models/article.dart';
 import 'package:flutter/material.dart';
 
 class NewsSlider extends StatelessWidget {
-  final List<String> news;
+  final List<Article> news;
   const NewsSlider({super.key, required this.news});
 
   @override
@@ -26,7 +27,7 @@ class NewsSlider extends StatelessWidget {
         children: [
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 20),
-            child: Text('Random Meals',
+            child: Text('Noticias',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
           ),
           const SizedBox(
@@ -36,8 +37,8 @@ class NewsSlider extends StatelessWidget {
             child: ListView.builder(
                 scrollDirection: Axis.horizontal,
                 itemCount: news.length,
-                itemBuilder: (_, int index) => _MealPoster(
-                      //meal: mealsAlAzar[index],
+                itemBuilder: (_, int index) => _NewImage(
+                      artic: news[index],
                     )),
           )
         ],
@@ -46,9 +47,9 @@ class NewsSlider extends StatelessWidget {
   }
 }
 
-class _MealPoster extends StatelessWidget {
-  //final MealReceta meal;
-  //const _MealPoster({Key? key, required this.meal}) : super(key: key);
+class _NewImage extends StatelessWidget {
+  final Article artic;
+  const _NewImage({Key? key, required this.artic}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +67,9 @@ class _MealPoster extends StatelessWidget {
               borderRadius: BorderRadius.circular(20),
               child: FadeInImage(
                 placeholder: const AssetImage('assets/no-image.jpg'),
-                image: NetworkImage('assets/no-image.jpg'),
+                image: artic.urlToImage != null && artic.urlToImage!.isNotEmpty
+                    ? NetworkImage(artic.urlToImage!)
+                    : const AssetImage('assets/no-image.jpg') as ImageProvider,
                 width: 130,
                 height: 190,
                 fit: BoxFit.cover,
@@ -78,7 +81,7 @@ class _MealPoster extends StatelessWidget {
           ),
           Expanded(
             child: Text(
-              "",
+              artic.title.isNotEmpty ? artic.title : 'Sin título',
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
               textAlign: TextAlign.center,
