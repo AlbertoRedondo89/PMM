@@ -88,7 +88,7 @@ class DetailsScreen extends StatelessWidget {
 class _Overview extends StatelessWidget {
   final MealReceta receta;
 
-  const _Overview({Key? key, required this.receta}) : super(key: key);
+  const _Overview({super.key, required this.receta});
 
   @override
   Widget build(BuildContext context) {

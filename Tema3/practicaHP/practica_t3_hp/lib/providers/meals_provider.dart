@@ -60,7 +60,7 @@ class MealsProvider extends ChangeNotifier {
   // Método para acceder a la información completa de una receta. 
   // Recibe un String por parámetro y un bool. En función del bool, buscará el String como id o como nombre en la API.
   Future<MealReceta> getDatosReceta(String dato, bool idNombre) async {
-    final url;
+    final Uri url;
     if (idNombre) {
       url = Uri.https(_baseUrl, '/api/json/v1/1/lookup.php', {'i': dato});
     } else {

@@ -6,7 +6,7 @@ Widget del buscador. Pide una categoría al usuario y comprueba si hay resultado
 Si los hay, abre una detail_screen con la receta.
 */
 class SearchDialog extends StatefulWidget {
-  const SearchDialog({Key? key}) : super(key: key);
+  const SearchDialog({super.key});
 
   @override
   State<SearchDialog> createState() => _SearchDialogState();
@@ -77,15 +77,9 @@ class _SearchDialogState extends State<SearchDialog> {
       final mealsProvider = Provider.of<MealsProvider>(context, listen: false);
       final receta = await mealsProvider.getDatosReceta(query, false);
 
-      if (receta != null) {
-        Navigator.of(context).pop(); // Cerrar el diálogo
-        Navigator.pushNamed(context, 'details', arguments: receta.getIdMeal());
-      } else {
-        setState(() {
-          _errorMessage = 'Receta no encontrada.';
-        });
-      }
-    } catch (e) {
+      Navigator.of(context).pop(); // Cerrar el diálogo
+      Navigator.pushNamed(context, 'details', arguments: receta.getIdMeal());
+        } catch (e) {
       setState(() {
         _errorMessage = 'Error al buscar la receta.';
       });

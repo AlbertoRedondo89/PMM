@@ -10,7 +10,7 @@ class MealSlider extends StatelessWidget {
     final size = MediaQuery.of(context).size;
 
     if (mealsAlAzar.isEmpty) {
-      return Container(
+      return SizedBox(
         width: double.infinity,
         height: size.height * 0.5,
         child: const Center(
@@ -49,7 +49,7 @@ class MealSlider extends StatelessWidget {
 
 class _MealPoster extends StatelessWidget {
   final MealReceta meal;
-  const _MealPoster({Key? key, required this.meal}) : super(key: key);
+  const _MealPoster({super.key, required this.meal});
 
   @override
   Widget build(BuildContext context) {

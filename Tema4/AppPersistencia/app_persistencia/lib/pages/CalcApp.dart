@@ -1,3 +1,4 @@
+import 'package:app_persistencia/preferences/preferences.dart';
 import 'package:app_persistencia/provider/CalcProvider.dart';
 import 'package:app_persistencia/widgets/CalcButton.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +13,44 @@ class CalcApp extends StatelessWidget {
     final calcProvider = Provider.of<CalcProvider>(context);
 
     return Scaffold(
-      backgroundColor: const Color(0xFF2283637),
+      appBar: AppBar(
+        title: Text('La Calculadora de : ${calcProvider.user}'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.edit),
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  final TextEditingController _nameController = TextEditingController();
+                  return AlertDialog(
+                    title: const Text('Cambiar nombre de usuario'),
+                    content: TextField(
+                      controller: _nameController,
+                      decoration: const InputDecoration(hintText: 'Nuevo nombre'),
+                    ),
+                    actions: [
+                      TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: const Text('Cancelar'),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          calcProvider.renombras(_nameController.text);
+                          Navigator.of(context).pop();
+                        },
+                        child: const Text('Guardar'),
+                      ),
+                    ],
+                  );
+                },
+              );
+            },
+          ),
+        ],
+      ),
       body: Container(
         padding: const EdgeInsets.all(12),
         child: Column(
@@ -26,7 +64,7 @@ class CalcApp extends StatelessWidget {
                   calcProvider.historial,
                   style: GoogleFonts.rubik(
                       textStyle:
-                          const TextStyle(fontSize: 24, color: Color(0xFF545F61))),
+                          const TextStyle(fontSize: 24)),
                 ),
               ),
             ),
@@ -37,11 +75,28 @@ class CalcApp extends StatelessWidget {
                 child: Text(
                   calcProvider.expresion,
                   style: GoogleFonts.rubik(
-                      textStyle: const TextStyle(fontSize: 48, color: Colors.white)),
+                      textStyle: const TextStyle(fontSize: 48)),
                 ),
               ),
             ),
             _buildButtonRows(calcProvider),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text('Modo Noche'),
+                Switch(
+                  value: Provider.of<CalcProvider>(context).current.brightness == Brightness.dark,
+                  onChanged: (bool value) {
+                    final calcProvider = Provider.of<CalcProvider>(context, listen: false);
+                    if (value) {
+                      calcProvider.setNight();
+                    } else {
+                      calcProvider.setLight();
+                    }
+                  },
+                )
+              ],
+            ),
           ],
         ),
       ),

@@ -41,7 +41,7 @@ class CardSwiper extends StatelessWidget {
                         BoxShadow(
                           color: Colors.black.withOpacity(0.7),
                           blurRadius: 8,
-                          offset: Offset(0, 4), // Desplazamiento de la sombra
+                          offset: const Offset(0, 4), // Desplazamiento de la sombra
                         ),
                       ],
                       borderRadius: BorderRadius.circular(
