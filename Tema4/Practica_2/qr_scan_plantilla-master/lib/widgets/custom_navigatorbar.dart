@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:qr_scan/providers/ui_provider.dart';
 
+/// Barra de navegación personalizada que cambia entre las pantallas
+/// de mapas y direcciones. Utiliza un `UiProvider` para gestionar el índice.
+
 class CustomNavigationBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

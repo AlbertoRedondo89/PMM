@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:qr_scan/models/scan_model.dart';
 import 'package:qr_scan/providers/db_provider.dart';
 import 'package:qr_scan/providers/scan_list_provider.dart';
 import 'package:qr_scan/providers/ui_provider.dart';
 import 'package:qr_scan/screens/screens.dart';
-import 'package:qr_scan/widgets/scan_button.dart';
 import 'package:qr_scan/widgets/widgets.dart';
+
+/// Pantalla principal de la aplicación, que incluye un AppBar,
+/// un cuerpo que cambia dinámicamente según la pestaña seleccionada,
+/// una barra de navegación inferior personalizada, y un botón flotante
+/// para escanear nuevos códigos QR.
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -34,6 +37,10 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
+
+/// Cuerpo principal de la HomeScreen. Cambia entre las pantallas
+/// de mapas y direcciones según la opción seleccionada en la barra
+/// de navegación inferior.
 
 class _HomeScreenBody extends StatelessWidget {
   const _HomeScreenBody({Key? key}) : super(key: key);

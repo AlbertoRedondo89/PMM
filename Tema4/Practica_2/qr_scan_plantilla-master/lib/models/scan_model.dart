@@ -2,10 +2,17 @@ import 'dart:convert';
 
 import 'package:google_maps_flutter/google_maps_flutter.dart' show LatLng;
 
+/// Modelo de datos para un "scan". Representa la información
+/// obtenida al escanear un código QR, como el tipo (http o geo),
+/// valor, y un posible nombre personalizado.
+/// También incluye lógica para extraer coordenadas (LatLng) de
+/// un valor en formato "geo:lat,lng".
+
 class ScanModel {
   ScanModel({
     this.id,
     this.tipus,
+    this.nombre,
     required this.valor,
   }) {
     if (this.valor.contains('http')) {
@@ -16,6 +23,7 @@ class ScanModel {
 
   int? id;
   String? tipus;
+  String? nombre;
   String valor;
 
   LatLng getLatLng() {
@@ -55,11 +63,13 @@ class ScanModel {
         id: json["id"],
         tipus: json["tipus"],
         valor: json["valor"],
+        nombre: json["nombre"], // Agregar el atributo
       );
 
   Map<String, dynamic> toMap() => {
         "id": id,
         "tipus": tipus,
         "valor": valor,
+        "nombre": nombre, // Agregar el atributo
       };
 }

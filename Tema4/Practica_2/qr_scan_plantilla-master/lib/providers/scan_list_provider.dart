@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:qr_scan/models/scan_model.dart';
 import 'package:qr_scan/providers/db_provider.dart';
 
+/// Proveedor que gestiona el estado de la lista de scans.
+/// Permite cargar, eliminar, renombrar y crear nuevos scans,
+/// y notifica a los listeners cuando hay cambios para actualizar la UI.
+
 class ScanListProvider extends ChangeNotifier {
   List<ScanModel> scans = [];
   String tipusSeleccionat = 'http';
@@ -25,8 +29,6 @@ class ScanListProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  // TODO:
-
   carregaScansPerTipus(String tipus) async {
     final scans = await DbProvider.db.getScansByTipus(tipus);
     this.scans = [...scans!];
@@ -42,6 +44,16 @@ class ScanListProvider extends ChangeNotifier {
 
   esborraPerId(int id) async {
     final scans = await DbProvider.db.deleteScanById(id);
-    // ?????????
+  }
+
+  renombrarPerId(int id, String nouNom) async {
+    await DbProvider.db.updateScanNouNom(id, nouNom);
+    scans = scans.map((scan) {
+      if (scan.id == id) {
+        scan.nombre = nouNom;
+      }
+      return scan;
+    }).toList();
+    notifyListeners();
   }
 }

@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:provider/provider.dart';
 import 'package:qr_scan/models/scan_model.dart';
-import 'package:qr_scan/providers/db_provider.dart';
 import 'package:qr_scan/providers/scan_list_provider.dart';
 import 'package:qr_scan/utils/utils.dart';
+
+/// Botón flotante que permite escanear códigos QR.
+/// Utiliza el paquete `flutter_barcode_scanner` para leer
+/// códigos y los procesa según el contenido del código escaneado.
 
 class ScanButton extends StatelessWidget {
   const ScanButton({Key? key}) : super(key: key);

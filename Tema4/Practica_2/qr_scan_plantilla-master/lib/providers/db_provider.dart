@@ -5,6 +5,10 @@ import 'package:qr_scan/models/scan_model.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
+/// Proveedor para manejar la base de datos SQLite de la aplicación.
+/// Permite inicializar la base de datos, realizar operaciones CRUD,
+/// y gestionar los datos almacenados en la tabla "Scans".
+
 class DbProvider {
   static Database? _database;
   static final DbProvider db = DbProvider._();
@@ -28,11 +32,12 @@ class DbProvider {
         version: 1, //si version no cambia, devolverá la misma DB
         onOpen: (db) {}, onCreate: (Database db, int version) async {
       await db.execute('''
-        CREATE TABLE Scans(
-          id INTEGER PRIMARY KEY,
-          tipus TEXT,
-          valor TEXT
-        )
+          CREATE TABLE Scans(
+            id INTEGER PRIMARY KEY,
+            tipus TEXT,
+            valor TEXT,
+            nombre TEXT
+          )
         ''');
     });
   }
@@ -109,6 +114,14 @@ class DbProvider {
   Future<int> deleteScanById(int id) async {
     final db = await database;
     final res = db.delete('Scans', where: 'id = ?', whereArgs: [id]);
+
+    return res;
+  }
+
+  Future<int> updateScanNouNom(int id, String nouNom) async {
+    final db = await database;
+    final res = db.update('Scans', {'nombre': nouNom},
+        where: 'id = ?', whereArgs: [id]);
 
     return res;
   }

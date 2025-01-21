@@ -5,6 +5,10 @@ import 'package:qr_scan/providers/ui_provider.dart';
 import 'package:qr_scan/screens/home_screen.dart';
 import 'package:qr_scan/screens/mapa_screen.dart';
 
+/// Punto de entrada principal de la aplicación.
+/// Configura los proveedores globales y define las rutas
+/// de las pantallas principales (HomeScreen y MapaScreen).
+
 void main() => runApp(MultiProvider(providers: [
       ChangeNotifierProvider(create: (_) => UiProvider()),
       ChangeNotifierProvider(create: (_) => ScanListProvider())
