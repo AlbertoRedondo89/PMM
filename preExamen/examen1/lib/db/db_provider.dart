@@ -29,6 +29,7 @@ class DbProvider {
     });
   }
 
+  /// **CREATE - Insertar usuario**
   Future<int> insertUser(String username, String password) async {
     final db = await database;
     final res = await db.insert(
@@ -39,15 +40,36 @@ class DbProvider {
     return res;
   }
 
+  /// **READ - Obtener usuario por nombre**
   Future<Map<String, dynamic>?> getUser(String username) async {
     final db = await database;
     final res = await db.query('Users', where: "username = ?", whereArgs: [username]);
     return res.isNotEmpty ? res.first : null;
   }
 
-  Future<List<String>> getAllUsers() async {
+  /// **READ - Obtener todos los usuarios**
+  Future<List<Map<String, dynamic>>> getAllUsers() async {
     final db = await database;
-    final res = await db.query('Users', columns: ['username']);
-    return res.isNotEmpty ? res.map((u) => u['username'] as String).toList() : [];
+    final res = await db.query('Users');
+    return res;
+  }
+
+  /// **UPDATE - Cambiar contraseña de usuario**
+  Future<int> updateUser(String username, String newPassword) async {
+    final db = await database;
+    final res = await db.update(
+      'Users',
+      {'password': newPassword},
+      where: 'username = ?',
+      whereArgs: [username],
+    );
+    return res;
+  }
+
+  /// **DELETE - Eliminar usuario**
+  Future<int> deleteUser(String username) async {
+    final db = await database;
+    final res = await db.delete('Users', where: 'username = ?', whereArgs: [username]);
+    return res;
   }
 }

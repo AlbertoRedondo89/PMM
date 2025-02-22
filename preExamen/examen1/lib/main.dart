@@ -1,3 +1,4 @@
+import 'package:examen1/screens/users_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'provider/auth_provider.dart';
@@ -24,6 +25,7 @@ class MyApp extends StatelessWidget {
               ),
           '/home': (context) => HomeScreen(),
           '/register': (context) => RegisterScreen(),
+          '/users': (context) => UsersScreen(),
         },
       ),
     );

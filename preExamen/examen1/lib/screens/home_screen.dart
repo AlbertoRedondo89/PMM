@@ -35,7 +35,7 @@ class HomeScreen extends StatelessWidget {
                 itemCount: authProvider.allUsers.length,
                 itemBuilder: (context, index) {
                   return ListTile(
-                    title: Text(authProvider.allUsers[index]),
+                    title: Text(authProvider.allUsers[index] as String),
                     leading: Icon(Icons.person),
                   );
                 },
