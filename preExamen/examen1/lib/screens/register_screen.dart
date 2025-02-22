@@ -2,43 +2,44 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../provider/auth_provider.dart';
 
-class RegisterScreen extends StatelessWidget {
-  final _usernameController = TextEditingController();
-  final _passwordController = TextEditingController();
+class RegisterScreen extends StatefulWidget {
+  @override
+  _RegisterScreenState createState() => _RegisterScreenState();
+}
+
+class _RegisterScreenState extends State<RegisterScreen> {
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    final authProvider = Provider.of<AuthProvider>(context);
+
     return Scaffold(
-      appBar: AppBar(title: Text('Registro')),
+      appBar: AppBar(title: Text("Registro")),
       body: Padding(
-        padding: EdgeInsets.all(16.0),
+        padding: EdgeInsets.all(16),
         child: Column(
           children: [
             TextField(
               controller: _usernameController,
-              decoration: InputDecoration(labelText: 'Usuario'),
+              decoration: InputDecoration(labelText: "Usuario"),
             ),
             TextField(
               controller: _passwordController,
-              decoration: InputDecoration(labelText: 'Contraseña'),
+              decoration: InputDecoration(labelText: "Contraseña"),
               obscureText: true,
             ),
             SizedBox(height: 20),
             ElevatedButton(
-              onPressed: () async {
-                bool registered = await context.read<AuthProvider>().register(
-                      _usernameController.text,
-                      _passwordController.text,
-                    );
-                if (registered) {
-                  Navigator.pop(context);
-                } else {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text('El usuario ya existe')),
-                  );
-                }
+              onPressed: () {
+                authProvider.register(
+                  _usernameController.text,
+                  _passwordController.text,
+                );
+                Navigator.pop(context);
               },
-              child: Text('Registrarse'),
+              child: Text("Registrarse"),
             ),
           ],
         ),

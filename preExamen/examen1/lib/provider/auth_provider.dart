@@ -1,50 +1,40 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import '../db/db_helper.dart';
+import '../db/db_provider.dart';
 
 class AuthProvider extends ChangeNotifier {
   bool _isAuthenticated = false;
   String? _username;
+  List<String> _allUsers = [];
 
   AuthProvider() {
-    _loadUser();
+    _loadUsers();
   }
 
   bool get isAuthenticated => _isAuthenticated;
   String? get username => _username;
+  List<String> get allUsers => _allUsers;
 
-  Future<void> _loadUser() async {
-    final prefs = await SharedPreferences.getInstance();
-    _username = prefs.getString('username');
-    _isAuthenticated = _username != null;
+  Future<void> _loadUsers() async {
+    _allUsers = await DbProvider.db.getAllUsers();
     notifyListeners();
   }
 
-  Future<bool> login(String username, String password) async {
-    final user = await DatabaseHelper.db.getUser(username);
+  Future<void> login(String username, String password) async {
+    final user = await DbProvider.db.getUser(username);
     if (user != null && user['password'] == password) {
-      final prefs = await SharedPreferences.getInstance();
-      await prefs.setString('username', username);
       _isAuthenticated = true;
       _username = username;
+      await _loadUsers();
       notifyListeners();
-      return true;
     }
-    return false;
   }
 
-  Future<bool> register(String username, String password) async {
-    final user = await DatabaseHelper.db.getUser(username);
-    if (user == null) {
-      await DatabaseHelper.db.insertUser(username, password);
-      return true;
-    }
-    return false;
+  Future<void> register(String username, String password) async {
+    await DbProvider.db.insertUser(username, password);
+    await _loadUsers();
   }
 
-  Future<void> logout() async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.remove('username');
+  void logout() {
     _isAuthenticated = false;
     _username = null;
     notifyListeners();

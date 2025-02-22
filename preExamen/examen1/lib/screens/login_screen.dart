@@ -8,61 +8,52 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final _formKey = GlobalKey<FormState>();
-  final _usernameController = TextEditingController();
-  final _passwordController = TextEditingController();
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    final authProvider = Provider.of<AuthProvider>(context);
+
     return Scaffold(
-      appBar: AppBar(title: Text('Login')),
+      appBar: AppBar(title: Text("Iniciar Sesión")),
       body: Padding(
-        padding: EdgeInsets.all(16.0),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            children: [
-              TextFormField(
-                controller: _usernameController,
-                decoration: InputDecoration(labelText: 'Usuario'),
-                validator: (value) =>
-                    value!.isEmpty ? 'Ingresa un usuario' : null,
-              ),
-              TextFormField(
-                controller: _passwordController,
-                decoration: InputDecoration(labelText: 'Contraseña'),
-                obscureText: true,
-                validator: (value) =>
-                    value!.isEmpty ? 'Ingresa una contraseña' : null,
-              ),
-              SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: () async {
-                  if (_formKey.currentState!.validate()) {
-                    bool success = await context.read<AuthProvider>().login(
-                          _usernameController.text,
-                          _passwordController.text,
-                        );
-                    if (success) {
-                      Navigator.pushReplacementNamed(context, '/home');
-                    } else {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text('Usuario o contraseña incorrectos')),
-                      );
-                    }
-                  }
-                },
-                child: Text('Iniciar sesión'),
-              ),
-              SizedBox(height: 10),
-              TextButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, '/register');
-                },
-                child: Text('¿No tienes cuenta? Regístrate'),
-              ),
-            ],
-          ),
+        padding: EdgeInsets.all(16),
+        child: Column(
+          children: [
+            TextField(
+              controller: _usernameController,
+              decoration: InputDecoration(labelText: "Usuario"),
+            ),
+            TextField(
+              controller: _passwordController,
+              decoration: InputDecoration(labelText: "Contraseña"),
+              obscureText: true,
+            ),
+            SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                authProvider.login(
+                  _usernameController.text,
+                  _passwordController.text,
+                );
+                if (authProvider.isAuthenticated) {
+                  Navigator.pushReplacementNamed(context, '/home');
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text("Usuario o contraseña incorrectos")),
+                  );
+                }
+              },
+              child: Text("Iniciar Sesión"),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.pushNamed(context, '/register');
+              },
+              child: Text("¿No tienes cuenta? Regístrate"),
+            ),
+          ],
         ),
       ),
     );

@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../provider/auth_provider.dart';
@@ -6,17 +5,43 @@ import '../provider/auth_provider.dart';
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final auth = Provider.of<AuthProvider>(context);
+    final authProvider = Provider.of<AuthProvider>(context);
 
     return Scaffold(
-      appBar: AppBar(title: Text('Bienvenido ${auth.username}')),
-      body: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            auth.logout();
-            Navigator.pushReplacementNamed(context, '/');
-          },
-          child: Text('Cerrar sesión'),
+      appBar: AppBar(
+        title: Text("Bienvenido, ${authProvider.username}!"),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.logout),
+            onPressed: () {
+              authProvider.logout();
+              Navigator.pushReplacementNamed(context, '/');
+            },
+          )
+        ],
+      ),
+      body: Padding(
+        padding: EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "Usuarios Registrados:",
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 10),
+            Expanded(
+              child: ListView.builder(
+                itemCount: authProvider.allUsers.length,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    title: Text(authProvider.allUsers[index]),
+                    leading: Icon(Icons.person),
+                  );
+                },
+              ),
+            ),
+          ],
         ),
       ),
     );
