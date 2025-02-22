@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../db/db_provider.dart';
+import '../database/db_provider.dart';
 
 class AuthProvider extends ChangeNotifier {
   bool _isAuthenticated = false;
@@ -19,6 +19,13 @@ class AuthProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  // Registrar nuevo usuario
+  Future<void> register(String username, String password) async {
+    await DbProvider.db.insertUser(username, password);
+    await _loadUsers(); // Recargamos la lista de usuarios después de agregar uno
+  }
+
+  // Login de usuario
   Future<void> login(String username, String password) async {
     final user = await DbProvider.db.getUser(username);
     if (user != null && user['password'] == password) {
@@ -29,24 +36,22 @@ class AuthProvider extends ChangeNotifier {
     }
   }
 
-  Future<void> register(String username, String password) async {
-    await DbProvider.db.insertUser(username, password);
-    await _loadUsers();
-  }
-
+  // Actualizar contraseña
   Future<void> updatePassword(String username, String newPassword) async {
     await DbProvider.db.updateUser(username, newPassword);
-    await _loadUsers();
+    await _loadUsers(); // Recargamos la lista después de actualizar
   }
 
+  // Eliminar usuario
   Future<void> deleteUser(String username) async {
     await DbProvider.db.deleteUser(username);
     if (_username == username) {
-      logout();
+      logout(); // Si eliminamos al usuario autenticado, hacemos logout
     }
     await _loadUsers();
   }
 
+  // Logout
   void logout() {
     _isAuthenticated = false;
     _username = null;

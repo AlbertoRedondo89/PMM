@@ -34,15 +34,61 @@ class HomeScreen extends StatelessWidget {
               child: ListView.builder(
                 itemCount: authProvider.allUsers.length,
                 itemBuilder: (context, index) {
+                  final user = authProvider.allUsers[index];
                   return ListTile(
-                    title: Text(authProvider.allUsers[index] as String),
+                    title: Text(user['username']),
                     leading: Icon(Icons.person),
+                    trailing: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        IconButton(
+                          icon: Icon(Icons.edit),
+                          onPressed: () => _showUpdateDialog(context, user['username']),
+                        ),
+                        IconButton(
+                          icon: Icon(Icons.delete, color: Colors.red),
+                          onPressed: () {
+                            authProvider.deleteUser(user['username']);
+                          },
+                        ),
+                      ],
+                    ),
                   );
                 },
               ),
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  void _showUpdateDialog(BuildContext context, String username) {
+    final TextEditingController _passwordController = TextEditingController();
+
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text("Actualizar Contraseña"),
+        content: TextField(
+          controller: _passwordController,
+          decoration: InputDecoration(labelText: "Nueva Contraseña"),
+          obscureText: true,
+        ),
+        actions: [
+          TextButton(
+            child: Text("Cancelar"),
+            onPressed: () => Navigator.pop(context),
+          ),
+          TextButton(
+            child: Text("Actualizar"),
+            onPressed: () {
+              Provider.of<AuthProvider>(context, listen: false)
+                  .updatePassword(username, _passwordController.text);
+              Navigator.pop(context);
+            },
+          ),
+        ],
       ),
     );
   }
