@@ -3,7 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:qr_scan/providers/db_provider.dart';
 import 'package:qr_scan/providers/scan_list_provider.dart';
 import 'package:qr_scan/providers/ui_provider.dart';
-import 'package:qr_scan/screens/screens.dart';
+import 'package:qr_scan/screens/direccions_screen.dart';
+import 'package:qr_scan/screens/mapas_screen.dart';
 import 'package:qr_scan/widgets/widgets.dart';
 
 /// Pantalla principal de la aplicación, que incluye un AppBar,
